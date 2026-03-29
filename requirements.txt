@@ -1,0 +1,14 @@
+fastapi==0.115.6
+uvicorn==0.34.0
+python-dotenv==1.0.1
+pydantic==2.10.4
+pydantic-settings==2.7.1
+python-jose[cryptography]==3.3.0
+python-multipart==0.0.20
+httpx==0.28.1
+resend==2.5.0
+stripe==11.4.1
+groq==0.15.0
+weasyprint==63.1
+itsdangerous==2.2.0
+aiosqlite==0.20.0
