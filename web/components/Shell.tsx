@@ -19,49 +19,99 @@ export default function Shell({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex h-screen">
       {/* Sidebar — arcade cabinet panel */}
-      <aside className="w-56 bg-gradient-to-b from-stamp-800 to-stamp-900 flex flex-col">
-        <div className="p-5 border-b border-stamp-700">
-          <h1 className="font-heading text-[10px] text-stamp-300 tracking-wider" style={{ textShadow: "0 0 8px rgba(139,58,42,0.4)" }}>
-            STAMPWERK
-          </h1>
+      <aside
+        className="w-56 flex flex-col flex-shrink-0"
+        style={{
+          background: "linear-gradient(180deg, #3D1810 0%, #2a1209 60%, #1e0d07 100%)",
+          boxShadow: "inset -1px 0 0 #5C2419, 2px 0 8px rgba(0,0,0,0.4)",
+        }}
+      >
+        {/* Logo area */}
+        <div className="px-5 py-5 border-b border-stamp-800">
+          <div className="flex items-center gap-2 mb-1">
+            {/* Cabinet power LED */}
+            <div
+              className="w-1.5 h-1.5 rounded-full bg-ledger-green flex-shrink-0"
+              style={{ boxShadow: "0 0 4px rgba(61,107,79,0.9), 0 0 8px rgba(61,107,79,0.4)" }}
+            />
+            <h1
+              className="font-heading text-[9px] text-stamp-300 tracking-wider"
+              style={{ textShadow: "0 0 10px rgba(139,58,42,0.5)" }}
+            >
+              STAMPWERK
+            </h1>
+          </div>
           {user?.business_name && (
-            <p className="text-xs text-stamp-500 mt-1 truncate font-mono">{user.business_name}</p>
+            <p className="text-[10px] text-stamp-600 mt-1.5 truncate font-mono tracking-wide pl-3.5">
+              {user.business_name}
+            </p>
           )}
         </div>
 
-        <nav className="flex-1 py-4 px-3 space-y-1">
+        {/* Nav */}
+        <nav className="flex-1 py-3 px-2.5 space-y-0.5">
           {NAV.map((item) => {
             const active = pathname.startsWith(item.href);
             return (
               <Link
                 key={item.href}
                 href={item.href}
-                className={`arcade-nav-item ${
+                className={`arcade-nav-item relative ${
                   active
-                    ? "bg-stamp-900/60 text-white"
-                    : "text-stamp-400 hover:bg-stamp-700/40 hover:text-stamp-200"
+                    ? "text-stamp-200 bg-stamp-900/70"
+                    : "text-stamp-500 hover:bg-stamp-800/50 hover:text-stamp-300"
                 }`}
+                style={active ? { boxShadow: "inset 2px 0 0 #B5604A" } : undefined}
               >
-                {active && <span className="text-stamp-300 text-[8px]">&#9654;</span>}
-                <svg className="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                {/* Active indicator bar */}
+                {active && (
+                  <span className="absolute left-0 top-1/2 -translate-y-1/2 font-mono text-[7px] text-stamp-400 pl-1">
+                    &#9658;
+                  </span>
+                )}
+                <svg
+                  className={`w-4 h-4 flex-shrink-0 ml-2 ${active ? "text-stamp-300" : "text-stamp-600"}`}
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={1.5}
+                >
                   <path strokeLinecap="round" strokeLinejoin="round" d={item.icon} />
                 </svg>
-                <span className="text-[10px]">{item.label}</span>
+                <span className="text-[9px] tracking-[0.15em]">{item.label}</span>
               </Link>
             );
           })}
         </nav>
 
-        <div className="p-3 border-t border-stamp-700">
-          <div className="flex items-center gap-2 px-3 py-2">
-            <div className="w-7 h-7 rounded-arcade bg-stamp-600 flex items-center justify-center text-[8px] font-bold text-stamp-200 font-mono">
-              {user?.name?.[0] || user?.email?.[0] || "?"}
+        {/* User section — cabinet player slot */}
+        <div className="px-2.5 py-3 border-t border-stamp-800">
+          <div
+            className="flex items-center gap-2.5 px-2 py-2 rounded-arcade"
+            style={{ background: "rgba(0,0,0,0.2)" }}
+          >
+            {/* Avatar badge */}
+            <div
+              className="w-7 h-7 rounded-retro flex items-center justify-center text-[8px] font-bold text-stamp-200 font-mono flex-shrink-0 border border-stamp-700"
+              style={{
+                background: "linear-gradient(135deg, #5C2419 0%, #3D1810 100%)",
+                boxShadow: "1px 1px 0 #1e0d07",
+              }}
+            >
+              {user?.name?.[0]?.toUpperCase() || user?.email?.[0]?.toUpperCase() || "?"}
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-xs font-mono text-stamp-300 truncate">{user?.name || user?.email}</p>
+              <p className="text-[9px] font-mono text-stamp-400 truncate leading-tight">
+                {user?.name || user?.email}
+              </p>
+              <p className="text-[8px] font-mono text-stamp-700 tracking-wider">ONLINE</p>
             </div>
-            <button onClick={logout} className="text-stamp-500 hover:text-stamp-300" title="Sign out">
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+            <button
+              onClick={logout}
+              title="Sign out"
+              className="text-stamp-700 hover:text-stamp-400 transition-colors flex-shrink-0 p-0.5"
+            >
+              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
               </svg>
             </button>
@@ -70,7 +120,7 @@ export default function Shell({ children }: { children: React.ReactNode }) {
       </aside>
 
       {/* Main content */}
-      <main className="flex-1 overflow-y-auto">
+      <main className="flex-1 overflow-y-auto bg-parchment">
         <div className="max-w-5xl mx-auto px-6 py-8">
           {children}
         </div>

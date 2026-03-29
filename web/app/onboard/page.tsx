@@ -30,12 +30,25 @@ export default function OnboardPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-parchment">
+    <div className="min-h-screen flex items-center justify-center bg-parchment px-4">
       <div className="max-w-md w-full">
-        <h1 className="text-2xl font-bold text-ink-900 font-heading letterpress">Welcome to Stampwerk</h1>
-        <p className="mt-2 text-sm text-ink-500">Tell us a bit about your business.</p>
 
-        <form onSubmit={handleSubmit} className="mt-8 space-y-5">
+        {/* Header */}
+        <div className="mb-8">
+          <div className="flex items-center gap-2 mb-4">
+            <div className="h-px flex-1 bg-ledger" />
+            <span className="font-heading text-[8px] text-ink-400 tracking-[0.2em] uppercase">New Game</span>
+            <div className="h-px flex-1 bg-ledger" />
+          </div>
+          <h1 className="font-heading text-[13px] text-ink-900 tracking-wider leading-relaxed">
+            WELCOME TO<br />STAMPWERK
+          </h1>
+          <p className="font-mono text-xs text-ink-500 mt-3 tracking-wider">
+            Tell us a bit about your business.
+          </p>
+        </div>
+
+        <form onSubmit={handleSubmit} className="space-y-5">
           <div>
             <label className="label-field">Your name</label>
             <input
@@ -43,9 +56,11 @@ export default function OnboardPage() {
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
+              placeholder="Alex"
               className="input-field w-full"
             />
           </div>
+
           <div>
             <label className="label-field">Business name</label>
             <input
@@ -55,26 +70,46 @@ export default function OnboardPage() {
               placeholder="Optional"
               className="input-field w-full"
             />
+            <p className="font-mono text-[9px] text-ink-400 mt-1.5 tracking-wider">
+              Shown on proposals and invoices.
+            </p>
           </div>
+
           <div>
             <label className="label-field">Brand color</label>
             <div className="flex items-center gap-3">
-              <input
-                type="color"
-                value={brandColor}
-                onChange={(e) => setBrandColor(e.target.value)}
-                className="w-10 h-10 rounded-retro border border-ledger cursor-pointer"
-              />
-              <span className="text-sm text-ink-400 font-mono">{brandColor}</span>
+              <div className="relative">
+                <input
+                  type="color"
+                  value={brandColor}
+                  onChange={(e) => setBrandColor(e.target.value)}
+                  className="w-10 h-10 rounded-retro border-[3px] border-ledger cursor-pointer bg-paper p-0.5"
+                  style={{ boxShadow: "2px 2px 0 rgba(201,191,168,0.5)" }}
+                />
+              </div>
+              <div>
+                <span className="font-mono text-sm text-ink-700 tracking-wider">{brandColor.toUpperCase()}</span>
+                <p className="font-mono text-[9px] text-ink-400 mt-0.5 tracking-wider">
+                  Used on your client portal.
+                </p>
+              </div>
             </div>
           </div>
-          <button
-            type="submit"
-            disabled={loading || !name}
-            className="btn-primary w-full py-3 disabled:opacity-50"
-          >
-            {loading ? "LOADING..." : "PRESS START"}
-          </button>
+
+          <div className="pt-2">
+            <button
+              type="submit"
+              disabled={loading || !name}
+              className="btn-insert-coin w-full disabled:opacity-50 disabled:animate-none disabled:shadow-arcade"
+            >
+              {loading ? "LOADING..." : "PRESS START"}
+            </button>
+            {!name && (
+              <p className="font-mono text-[9px] text-ink-400 text-center mt-3 tracking-wider">
+                Enter your name to continue
+              </p>
+            )}
+          </div>
         </form>
       </div>
     </div>
