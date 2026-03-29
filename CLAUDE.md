@@ -1,15 +1,17 @@
-# FlowDesk — AI Freelancer Business Tool
+# Stampwerk — AI Freelancer Business Tool
 
 ## What
-$12/mo HoneyBook alternative for solo freelancers. AI proposals, auto-contracts, smart invoicing, client portal.
+$12/mo HoneyBook alternative for solo freelancers. AI proposals, auto-contracts, smart invoicing, client portal. Bilingual (en/es). Retro UI aesthetic.
+Domain: stampwerk.com
 
 ## Stack
 - Python 3.11+, FastAPI, SQLite, Pydantic
 - Groq (Llama 3.3 70B) for AI proposal/follow-up generation
-- Stripe for payments (client payments + FlowDesk subscription)
+- Stripe for payments (client payments + Stampwerk subscription)
 - Resend for transactional email
 - WeasyPrint for PDF generation
 - PM2 for process management
+- Next.js 14 + Tailwind frontend (web/)
 
 ## Key Files
 - main.py — FastAPI app entry (port 8600)
@@ -35,9 +37,10 @@ $12/mo HoneyBook alternative for solo freelancers. AI proposals, auto-contracts,
 
 ## Build & Test
 ```bash
-pm2 restart flowdesk --update-env
+pm2 restart flowdesk-api --update-env
 curl -s http://localhost:8600/health | jq .
-pm2 logs flowdesk --lines 30
+pm2 logs flowdesk-api --lines 30
+cd web && npm run build && pm2 restart flowdesk-web
 ```
 
 ## Roadmap

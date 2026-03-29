@@ -51,7 +51,7 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
       <div className="max-w-sm w-full">
-        <h1 className="text-2xl font-bold text-center text-gray-900">Sign in to FlowDesk</h1>
+        <h1 className="text-2xl font-bold text-center text-gray-900">Sign in to Stampwerk</h1>
         <p className="mt-2 text-center text-sm text-gray-500">No password needed. We'll email you a link.</p>
 
         <form onSubmit={handleSubmit} className="mt-8 space-y-4">

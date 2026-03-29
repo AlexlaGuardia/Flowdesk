@@ -32,7 +32,7 @@ export default function OnboardPage() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
       <div className="max-w-md w-full">
-        <h1 className="text-2xl font-bold text-gray-900">Welcome to FlowDesk</h1>
+        <h1 className="text-2xl font-bold text-gray-900">Welcome to Stampwerk</h1>
         <p className="mt-2 text-sm text-gray-500">Tell us a bit about your business.</p>
 
         <form onSubmit={handleSubmit} className="mt-8 space-y-5">

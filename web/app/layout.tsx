@@ -6,7 +6,7 @@ import { AuthProvider } from "@/lib/auth";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "FlowDesk",
+  title: "Stampwerk",
   description: "AI-powered freelancer business tool",
 };
 

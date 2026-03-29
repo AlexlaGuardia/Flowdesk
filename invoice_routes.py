@@ -11,13 +11,13 @@ router = APIRouter(prefix="/invoices", tags=["invoices"])
 
 
 def _next_invoice_number(user_id: int) -> str:
-    """Generate the next invoice number for a user (FD-001, FD-002...)."""
+    """Generate the next invoice number for a user (SW-001, SW-002...)."""
     result = db.query(
         "SELECT COUNT(*) as c FROM invoices WHERE user_id = ?",
         (user_id,), one=True
     )
     num = (result["c"] or 0) + 1
-    return f"FD-{num:03d}"
+    return f"SW-{num:03d}"
 
 
 @router.post("", response_model=MessageResponse)

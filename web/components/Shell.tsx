@@ -21,7 +21,7 @@ export default function Shell({ children }: { children: React.ReactNode }) {
       {/* Sidebar */}
       <aside className="w-56 bg-white border-r border-gray-200 flex flex-col">
         <div className="p-5 border-b border-gray-100">
-          <h1 className="text-lg font-bold text-indigo-600">FlowDesk</h1>
+          <h1 className="text-lg font-bold text-indigo-600">Stampwerk</h1>
           {user?.business_name && (
             <p className="text-xs text-gray-400 mt-0.5 truncate">{user.business_name}</p>
           )}

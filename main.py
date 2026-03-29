@@ -17,7 +17,7 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(
-    title="FlowDesk API",
+    title="Stampwerk API",
     version="0.1.0",
     description="AI-native freelancer business tool",
     lifespan=lifespan,
@@ -39,7 +39,7 @@ async def health():
     user_count = db.query("SELECT COUNT(*) as c FROM users")[0]["c"]
     return {
         "status": "ok",
-        "service": "flowdesk",
+        "service": "stampwerk",
         "version": "0.1.0",
         "timestamp": datetime.now(timezone.utc).isoformat(),
         "users": user_count,

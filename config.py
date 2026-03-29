@@ -8,7 +8,7 @@ BASE_DIR = Path(__file__).parent
 
 # App
 APP_URL = os.getenv("APP_URL", "http://localhost:8600")
-APP_NAME = os.getenv("APP_NAME", "FlowDesk")
+APP_NAME = os.getenv("APP_NAME", "Stampwerk")
 PORT = int(os.getenv("PORT", "8600"))
 
 # Database
@@ -23,7 +23,7 @@ MAGIC_LINK_EXPIRY_MINUTES = 15
 
 # Email (Resend)
 RESEND_API_KEY = os.getenv("RESEND_API_KEY", "")
-FROM_EMAIL = os.getenv("FROM_EMAIL", "hello@flowdesk.app")
+FROM_EMAIL = os.getenv("FROM_EMAIL", "hello@stampwerk.com")
 
 # AI (Groq)
 GROQ_API_KEY = os.getenv("GROQ_API_KEY", "")

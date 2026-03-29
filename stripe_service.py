@@ -52,7 +52,7 @@ def create_subscription_checkout(
     success_url: str,
     cancel_url: str,
 ) -> str | None:
-    """Create a checkout session for FlowDesk Pro subscription."""
+    """Create a checkout session for Stampwerk Pro subscription."""
     if not config.STRIPE_SECRET_KEY or not config.STRIPE_PRICE_ID:
         print(f"[DEV] Subscription checkout for {user_email}")
         return None

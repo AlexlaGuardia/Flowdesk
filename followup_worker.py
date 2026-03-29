@@ -1,5 +1,5 @@
 """
-FlowDesk Follow-Up Worker
+Stampwerk Follow-Up Worker
 Runs as a background daemon (PM2). Checks for overdue invoices and sends
 AI-generated follow-up emails on a 3-stage escalation:
   Stage 1 (3 days overdue): Friendly reminder
@@ -7,7 +7,7 @@ AI-generated follow-up emails on a 3-stage escalation:
   Stage 3 (14 days overdue): Final notice
 
 Run: python3 followup_worker.py
-PM2: pm2 start followup_worker.py --name flowdesk-followup --interpreter python3
+PM2: pm2 start followup_worker.py --name stampwerk-followup --interpreter python3
 """
 
 import time

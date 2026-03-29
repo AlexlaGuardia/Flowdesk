@@ -3,7 +3,7 @@ from contextlib import contextmanager
 from config import DB_PATH
 
 SCHEMA = """
--- Freelancers using FlowDesk
+-- Freelancers using Stampwerk
 CREATE TABLE IF NOT EXISTS users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     email TEXT UNIQUE NOT NULL,

@@ -5,7 +5,7 @@ export default function Home() {
     <div className="min-h-screen bg-white">
       {/* Nav */}
       <nav className="flex items-center justify-between px-6 py-4 max-w-5xl mx-auto">
-        <h1 className="text-xl font-bold text-indigo-600">FlowDesk</h1>
+        <h1 className="text-xl font-bold text-indigo-600">Stampwerk</h1>
         <Link
           href="/login"
           className="text-sm font-medium text-indigo-600 hover:text-indigo-700"
@@ -65,7 +65,7 @@ export default function Home() {
 
       {/* Footer */}
       <footer className="text-center py-8 text-xs text-gray-400">
-        FlowDesk &copy; {new Date().getFullYear()}
+        Stampwerk &copy; {new Date().getFullYear()}
       </footer>
     </div>
   );

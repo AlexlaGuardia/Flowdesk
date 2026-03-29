@@ -88,7 +88,7 @@ export default function PublicInvoicePage() {
           </div>
         )}
 
-        <p className="mt-8 text-center text-xs text-gray-300">Powered by FlowDesk</p>
+        <p className="mt-8 text-center text-xs text-gray-300">Powered by Stampwerk</p>
       </div>
     </div>
   );
