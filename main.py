@@ -126,7 +126,7 @@ async def complete_onboarding(body: UserUpdate, user: dict = Depends(get_current
     db.execute(f"UPDATE users SET {set_clause}, updated_at = CURRENT_TIMESTAMP WHERE id = ?", tuple(values))
 
     updated = db.query("SELECT * FROM users WHERE id = ?", (user["id"],), one=True)
-    return UserOut(**updated, onboarded=bool(updated["onboarded"]))
+    return UserOut(**{**updated, "onboarded": bool(updated["onboarded"])})
 
 
 # ── Register route modules ──
@@ -134,10 +134,16 @@ async def complete_onboarding(body: UserUpdate, user: dict = Depends(get_current
 from client_routes import router as client_router
 from project_routes import router as project_router
 from proposal_routes import router as proposal_router
+from invoice_routes import router as invoice_router
+from contract_routes import router as contract_router
+from portal_routes import router as portal_router
 
 app.include_router(client_router)
 app.include_router(project_router)
 app.include_router(proposal_router)
+app.include_router(invoice_router)
+app.include_router(contract_router)
+app.include_router(portal_router)
 
 
 if __name__ == "__main__":
