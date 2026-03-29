@@ -6,7 +6,6 @@ from models import MessageResponse
 import db
 import ai
 import email_service
-import config
 
 router = APIRouter(prefix="/contracts", tags=["contracts"])
 
@@ -148,24 +147,12 @@ async def send_contract(contract_id: int, user: dict = Depends(get_current_user)
     client = db.query("SELECT * FROM clients WHERE id = ?", (project["client_id"],), one=True)
 
     # Send email with contract link
-    link = f"{config.APP_URL}/c/{contract['share_token']}"
-    if config.RESEND_API_KEY:
-        import resend
-        resend.api_key = config.RESEND_API_KEY
-        resend.Emails.send({
-            "from": f"{config.APP_NAME} <{config.FROM_EMAIL}>",
-            "to": [client["email"]],
-            "subject": f"Contract from {user['name']}: {project['name']}",
-            "html": f"""
-            <div style="font-family: -apple-system, sans-serif; max-width: 480px; margin: 0 auto; padding: 40px 20px;">
-                <h2 style="color: #1f2937;">{user['name']} sent you a contract</h2>
-                <p style="color: #6b7280; margin-bottom: 24px;">Please review and sign the contract for <strong>{project['name']}</strong>.</p>
-                <a href="{link}" style="display: inline-block; background: #6366f1; color: white; padding: 12px 32px; border-radius: 8px; text-decoration: none; font-weight: 600;">Review & Sign</a>
-            </div>
-            """,
-        })
-    else:
-        print(f"[DEV] Contract link for {client['email']}: {link}")
+    email_service.send_contract_notification(
+        to_email=client["email"],
+        freelancer_name=user["name"],
+        project_name=project["name"],
+        share_token=contract["share_token"],
+    )
 
     db.execute(
         "UPDATE contracts SET status = 'sent', sent_at = CURRENT_TIMESTAMP, updated_at = CURRENT_TIMESTAMP WHERE id = ?",

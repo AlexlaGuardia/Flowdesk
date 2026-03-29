@@ -172,23 +172,13 @@ async def client_upload_file(
     # Notify freelancer
     user = db.query("SELECT * FROM users WHERE id = ?", (project["user_id"],), one=True)
     client = db.query("SELECT * FROM clients WHERE id = ?", (project["client_id"],), one=True)
-    if config.RESEND_API_KEY:
-        import resend
-        resend.api_key = config.RESEND_API_KEY
-        resend.Emails.send({
-            "from": f"{config.APP_NAME} <{config.FROM_EMAIL}>",
-            "to": [user["email"]],
-            "subject": f"New file from {client['name']}: {file.filename}",
-            "html": f"""
-            <div style="font-family: -apple-system, sans-serif; max-width: 480px; margin: 0 auto; padding: 40px 20px;">
-                <p style="color: #6b7280;"><strong>{client['name']}</strong> uploaded a file to <strong>{project['name']}</strong>:</p>
-                <p style="color: #1f2937; font-weight: 600;">{file.filename}</p>
-                <a href="{config.APP_URL}/dashboard/projects/{project['id']}" style="display: inline-block; background: #6366f1; color: white; padding: 12px 32px; border-radius: 8px; text-decoration: none; font-weight: 600; margin-top: 16px;">View in Dashboard</a>
-            </div>
-            """,
-        })
-    else:
-        print(f"[DEV] Client {client['name']} uploaded {file.filename}")
+    email_service.send_file_upload_notification(
+        to_email=user["email"],
+        client_name=client["name"],
+        project_name=project["name"],
+        filename=file.filename,
+        project_id=project["id"],
+    )
 
     return {"message": "File uploaded", "id": file_id}
 

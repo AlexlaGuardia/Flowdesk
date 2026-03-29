@@ -24,6 +24,45 @@ def _enrich_project(project: dict) -> dict:
     return project
 
 
+# ── Dashboard Stats (must be before /{project_id} to avoid route shadowing) ──
+
+@router.get("/stats/overview")
+async def project_stats(user: dict = Depends(get_current_user)):
+    """Get dashboard overview stats."""
+    projects = db.query("""
+        SELECT
+            COUNT(*) as total,
+            SUM(CASE WHEN status = 'draft' THEN 1 ELSE 0 END) as drafts,
+            SUM(CASE WHEN status = 'proposed' THEN 1 ELSE 0 END) as proposed,
+            SUM(CASE WHEN status = 'active' THEN 1 ELSE 0 END) as active,
+            SUM(CASE WHEN status = 'completed' THEN 1 ELSE 0 END) as completed,
+            COALESCE(SUM(total_amount), 0) as total_value,
+            COALESCE(SUM(paid_amount), 0) as total_paid
+        FROM projects WHERE user_id = ?
+    """, (user["id"],), one=True)
+
+    invoices = db.query("""
+        SELECT
+            COUNT(*) as total,
+            SUM(CASE WHEN status = 'paid' THEN 1 ELSE 0 END) as paid,
+            SUM(CASE WHEN status IN ('sent', 'overdue') THEN 1 ELSE 0 END) as outstanding,
+            COALESCE(SUM(CASE WHEN status = 'paid' THEN total ELSE 0 END), 0) as revenue,
+            COALESCE(SUM(CASE WHEN status IN ('sent', 'overdue') THEN total ELSE 0 END), 0) as outstanding_amount
+        FROM invoices WHERE user_id = ?
+    """, (user["id"],), one=True)
+
+    client_count = db.query(
+        "SELECT COUNT(*) as c FROM clients WHERE user_id = ?",
+        (user["id"],)
+    )[0]["c"]
+
+    return {
+        "projects": projects,
+        "invoices": invoices,
+        "client_count": client_count,
+    }
+
+
 @router.post("", response_model=MessageResponse)
 async def create_project(body: ProjectCreate, user: dict = Depends(get_current_user)):
     """Create a new project with optional milestones."""
@@ -244,42 +283,3 @@ async def delete_milestone(
 
     db.execute("DELETE FROM milestones WHERE id = ? AND project_id = ?", (milestone_id, project_id))
     return {"message": "Milestone deleted"}
-
-
-# ── Dashboard Stats ──
-
-@router.get("/stats/overview")
-async def project_stats(user: dict = Depends(get_current_user)):
-    """Get dashboard overview stats."""
-    projects = db.query("""
-        SELECT
-            COUNT(*) as total,
-            SUM(CASE WHEN status = 'draft' THEN 1 ELSE 0 END) as drafts,
-            SUM(CASE WHEN status = 'proposed' THEN 1 ELSE 0 END) as proposed,
-            SUM(CASE WHEN status = 'active' THEN 1 ELSE 0 END) as active,
-            SUM(CASE WHEN status = 'completed' THEN 1 ELSE 0 END) as completed,
-            COALESCE(SUM(total_amount), 0) as total_value,
-            COALESCE(SUM(paid_amount), 0) as total_paid
-        FROM projects WHERE user_id = ?
-    """, (user["id"],), one=True)
-
-    invoices = db.query("""
-        SELECT
-            COUNT(*) as total,
-            SUM(CASE WHEN status = 'paid' THEN 1 ELSE 0 END) as paid,
-            SUM(CASE WHEN status IN ('sent', 'overdue') THEN 1 ELSE 0 END) as outstanding,
-            COALESCE(SUM(CASE WHEN status = 'paid' THEN total ELSE 0 END), 0) as revenue,
-            COALESCE(SUM(CASE WHEN status IN ('sent', 'overdue') THEN total ELSE 0 END), 0) as outstanding_amount
-        FROM invoices WHERE user_id = ?
-    """, (user["id"],), one=True)
-
-    client_count = db.query(
-        "SELECT COUNT(*) as c FROM clients WHERE user_id = ?",
-        (user["id"],)
-    )[0]["c"]
-
-    return {
-        "projects": projects,
-        "invoices": invoices,
-        "client_count": client_count,
-    }
