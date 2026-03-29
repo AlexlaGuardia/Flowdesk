@@ -30,48 +30,48 @@ export default function OnboardPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
+    <div className="min-h-screen flex items-center justify-center bg-parchment">
       <div className="max-w-md w-full">
-        <h1 className="text-2xl font-bold text-gray-900">Welcome to Stampwerk</h1>
-        <p className="mt-2 text-sm text-gray-500">Tell us a bit about your business.</p>
+        <h1 className="text-2xl font-bold text-ink-900 font-heading letterpress">Welcome to Stampwerk</h1>
+        <p className="mt-2 text-sm text-ink-500">Tell us a bit about your business.</p>
 
         <form onSubmit={handleSubmit} className="mt-8 space-y-5">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Your name</label>
+            <label className="label-field">Your name</label>
             <input
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none"
+              className="input-field w-full"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Business name</label>
+            <label className="label-field">Business name</label>
             <input
               type="text"
               value={businessName}
               onChange={(e) => setBusinessName(e.target.value)}
               placeholder="Optional"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none"
+              className="input-field w-full"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Brand color</label>
+            <label className="label-field">Brand color</label>
             <div className="flex items-center gap-3">
               <input
                 type="color"
                 value={brandColor}
                 onChange={(e) => setBrandColor(e.target.value)}
-                className="w-10 h-10 rounded border border-gray-300 cursor-pointer"
+                className="w-10 h-10 rounded-retro border border-ledger cursor-pointer"
               />
-              <span className="text-sm text-gray-400">{brandColor}</span>
+              <span className="text-sm text-ink-400 font-mono">{brandColor}</span>
             </div>
           </div>
           <button
             type="submit"
             disabled={loading || !name}
-            className="w-full py-3 bg-indigo-600 text-white rounded-lg font-medium hover:bg-indigo-700 disabled:opacity-50 transition-colors"
+            className="btn-primary w-full py-3 disabled:opacity-50"
           >
             {loading ? "Setting up..." : "Get Started"}
           </button>

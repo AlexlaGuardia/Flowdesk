@@ -37,10 +37,10 @@ function VerifyInner() {
 
   if (error) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="min-h-screen flex items-center justify-center bg-parchment">
         <div className="text-center">
-          <p className="text-red-600 font-medium">{error}</p>
-          <a href="/login" className="mt-4 inline-block text-sm text-indigo-600 hover:text-indigo-700">
+          <p className="text-void-red font-medium">{error}</p>
+          <a href="/login" className="mt-4 inline-block text-sm text-stamp-600 hover:text-stamp-700">
             Try again
           </a>
         </div>
@@ -49,8 +49,8 @@ function VerifyInner() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
-      <p className="text-gray-500">Verifying...</p>
+    <div className="min-h-screen flex items-center justify-center bg-parchment">
+      <p className="text-ink-500">Verifying...</p>
     </div>
   );
 }

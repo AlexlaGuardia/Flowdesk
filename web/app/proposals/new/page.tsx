@@ -78,7 +78,7 @@ function NewProposalInner() {
 
   return (
     <Shell>
-      <button onClick={() => router.back()} className="text-sm text-gray-400 hover:text-gray-600 mb-4 block">
+      <button onClick={() => router.back()} className="text-sm text-ink-400 hover:text-ink-700 mb-4 block">
         &larr; Back
       </button>
 
@@ -88,22 +88,22 @@ function NewProposalInner() {
           {STEPS.map((s, i) => (
             <div
               key={s.key}
-              className={`h-1 flex-1 rounded-full ${i <= step ? "bg-indigo-500" : "bg-gray-200"}`}
+              className={`h-1 flex-1 rounded-full ${i <= step ? "bg-stamp-600" : "bg-ledger/50"}`}
             />
           ))}
         </div>
 
-        <h1 className="text-xl font-bold text-gray-900">{STEPS[step].label}</h1>
-        <p className="text-sm text-gray-500 mt-1 mb-6">{STEPS[step].desc}</p>
+        <h1 className="page-title">{STEPS[step].label}</h1>
+        <p className="text-sm text-ink-500 mt-1 mb-6">{STEPS[step].desc}</p>
 
         {/* Step 0: Client */}
         {step === 0 && (
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Project</label>
+              <label className="label-field">Project</label>
               <select
                 value={form.project_id} onChange={(e) => setForm({ ...form, project_id: e.target.value })}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 outline-none"
+                className="input-field"
               >
                 <option value="">Select a project</option>
                 {projects.filter((p) => p.status === "draft" || p.status === "active").map((p) => (
@@ -112,10 +112,10 @@ function NewProposalInner() {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Client name</label>
+              <label className="label-field">Client name</label>
               <input
                 type="text" value={form.client_name} onChange={(e) => setForm({ ...form, client_name: e.target.value })}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 outline-none"
+                className="input-field"
               />
             </div>
           </div>
@@ -128,10 +128,10 @@ function NewProposalInner() {
               <button
                 key={t}
                 onClick={() => setForm({ ...form, project_type: t })}
-                className={`p-3 rounded-lg border text-sm font-medium text-left transition-colors ${
+                className={`p-3 rounded-retro border text-sm font-medium text-left transition-colors ${
                   form.project_type === t
-                    ? "border-indigo-500 bg-indigo-50 text-indigo-700"
-                    : "border-gray-200 text-gray-700 hover:border-gray-300"
+                    ? "border-stamp-600 bg-stamp-50 text-stamp-700"
+                    : "border-ledger text-ink-700 hover:border-ledger"
                 }`}
               >
                 {t}
@@ -147,7 +147,7 @@ function NewProposalInner() {
             onChange={(e) => setForm({ ...form, scope_description: e.target.value })}
             rows={5}
             placeholder="Describe the work: deliverables, requirements, any specifics the client needs..."
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 outline-none"
+            className="input-field"
           />
         )}
 
@@ -158,10 +158,10 @@ function NewProposalInner() {
               <button
                 key={t}
                 onClick={() => setForm({ ...form, timeline: t })}
-                className={`p-3 rounded-lg border text-sm font-medium text-left transition-colors ${
+                className={`p-3 rounded-retro border text-sm font-medium text-left transition-colors ${
                   form.timeline === t
-                    ? "border-indigo-500 bg-indigo-50 text-indigo-700"
-                    : "border-gray-200 text-gray-700 hover:border-gray-300"
+                    ? "border-stamp-600 bg-stamp-50 text-stamp-700"
+                    : "border-ledger text-ink-700 hover:border-ledger"
                 }`}
               >
                 {t}
@@ -177,10 +177,10 @@ function NewProposalInner() {
               <button
                 key={b}
                 onClick={() => setForm({ ...form, budget_range: b })}
-                className={`p-3 rounded-lg border text-sm font-medium text-left transition-colors ${
+                className={`p-3 rounded-retro border text-sm font-medium text-left transition-colors ${
                   form.budget_range === b
-                    ? "border-indigo-500 bg-indigo-50 text-indigo-700"
-                    : "border-gray-200 text-gray-700 hover:border-gray-300"
+                    ? "border-stamp-600 bg-stamp-50 text-stamp-700"
+                    : "border-ledger text-ink-700 hover:border-ledger"
                 }`}
               >
                 {b}
@@ -193,7 +193,7 @@ function NewProposalInner() {
         <div className="flex justify-between mt-8">
           <button
             onClick={() => setStep(Math.max(0, step - 1))}
-            className={`px-4 py-2 text-sm text-gray-600 hover:text-gray-800 ${step === 0 ? "invisible" : ""}`}
+            className={`px-4 py-2 text-sm text-ink-500 hover:text-ink-700 ${step === 0 ? "invisible" : ""}`}
           >
             Back
           </button>
@@ -202,7 +202,7 @@ function NewProposalInner() {
             <button
               onClick={() => setStep(step + 1)}
               disabled={!canNext()}
-              className="px-6 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 disabled:opacity-50 transition-colors"
+              className="btn-primary px-6 py-2 text-sm disabled:opacity-50"
             >
               Continue
             </button>
@@ -210,7 +210,7 @@ function NewProposalInner() {
             <button
               onClick={handleGenerate}
               disabled={!canNext() || generating}
-              className="px-6 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 disabled:opacity-50 transition-colors"
+              className="btn-primary px-6 py-2 text-sm disabled:opacity-50"
             >
               {generating ? "Generating..." : "Generate Proposal"}
             </button>

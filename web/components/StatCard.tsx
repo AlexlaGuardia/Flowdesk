@@ -5,22 +5,27 @@ interface StatCardProps {
   color?: string;
 }
 
-export default function StatCard({ label, value, sub, color = "indigo" }: StatCardProps) {
-  const colorMap: Record<string, string> = {
-    indigo: "bg-indigo-50 text-indigo-600",
-    green: "bg-green-50 text-green-600",
-    amber: "bg-amber-50 text-amber-600",
-    red: "bg-red-50 text-red-600",
-    gray: "bg-gray-50 text-gray-600",
-  };
+const ACCENT_COLORS: Record<string, string> = {
+  brand: "border-l-stamp-600",
+  green: "border-l-ledger-green",
+  amber: "border-l-manila",
+  red: "border-l-void-red",
+  blue: "border-l-carbon",
+  gray: "border-l-ink-400",
+};
+
+export default function StatCard({ label, value, sub, color = "brand" }: StatCardProps) {
+  // Map old color names to new ones
+  const colorKey = color === "indigo" ? "brand" : color;
+  const accent = ACCENT_COLORS[colorKey] || ACCENT_COLORS.brand;
 
   return (
-    <div className="bg-white rounded-xl border border-gray-200 p-5">
-      <p className="text-sm text-gray-500">{label}</p>
-      <p className={`text-2xl font-bold mt-1 ${colorMap[color]?.split(" ")[1] || "text-gray-900"}`}>
+    <div className={`card border-l-4 ${accent} p-5`}>
+      <p className="section-heading mb-0">{label}</p>
+      <p className="text-3xl font-semibold font-mono text-ink-900 mt-1">
         {value}
       </p>
-      {sub && <p className="text-xs text-gray-400 mt-1">{sub}</p>}
+      {sub && <p className="text-xs text-ink-400 mt-1">{sub}</p>}
     </div>
   );
 }
