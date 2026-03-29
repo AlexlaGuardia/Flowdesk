@@ -127,6 +127,101 @@ Generate the email JSON now."""
         return _fallback_followup(freelancer_name, client_name, invoice_number, amount, stage)
 
 
+CONTRACT_SYSTEM_PROMPT = """You are a freelance contract writer. Generate a professional service agreement based on an accepted proposal.
+
+Output valid JSON with this structure:
+{
+    "preamble": "One paragraph establishing the agreement between the parties",
+    "scope_of_work": "Professional description of the work to be performed",
+    "deliverables_clause": "Clear clause listing all deliverables and acceptance criteria",
+    "timeline_clause": "Timeline expectations and milestone dates",
+    "payment_clause": "Payment schedule, amounts, methods, and late payment terms",
+    "revisions_clause": "How many revisions are included and how extras are handled",
+    "ip_clause": "Intellectual property transfer terms (transfer on full payment)",
+    "confidentiality_clause": "Mutual NDA covering project details",
+    "termination_clause": "How either party can end the agreement and payment for completed work",
+    "liability_clause": "Limitation of liability to total project fee"
+}
+
+Guidelines:
+- Professional but readable — not dense legalese
+- Specific to this project (use real names, amounts, dates)
+- Protect both parties fairly
+- Keep each clause to 2-4 sentences"""
+
+
+def generate_contract(
+    freelancer_name: str,
+    business_name: str,
+    client_name: str,
+    client_company: str,
+    project_name: str,
+    scope: list[str],
+    deliverables: list[str],
+    timeline: list[dict],
+    total_price: float,
+    payment_terms: str,
+) -> dict:
+    """Generate professional contract language using AI."""
+    if not client:
+        return _fallback_contract(
+            freelancer_name, client_name, project_name,
+            scope, deliverables, total_price
+        )
+
+    user_prompt = f"""Generate a service agreement for:
+
+Freelancer: {freelancer_name} ({business_name})
+Client: {client_name} ({client_company})
+Project: {project_name}
+Scope: {'; '.join(scope)}
+Deliverables: {'; '.join(deliverables)}
+Timeline: {json.dumps(timeline)}
+Total Price: ${total_price:,.2f}
+Payment Terms: {payment_terms}
+
+Generate the contract JSON now."""
+
+    try:
+        response = client.chat.completions.create(
+            model=config.GROQ_MODEL,
+            messages=[
+                {"role": "system", "content": CONTRACT_SYSTEM_PROMPT},
+                {"role": "user", "content": user_prompt},
+            ],
+            temperature=0.5,
+            max_tokens=2000,
+            response_format={"type": "json_object"},
+        )
+        content = response.choices[0].message.content
+        return json.loads(content)
+    except Exception as e:
+        print(f"[AI] Contract generation failed: {e}")
+        return _fallback_contract(
+            freelancer_name, client_name, project_name,
+            scope, deliverables, total_price
+        )
+
+
+def _fallback_contract(
+    freelancer: str, client_name: str, project: str,
+    scope: list, deliverables: list, total: float
+) -> dict:
+    """Fallback contract clauses when AI is unavailable."""
+    return {
+        "preamble": f"This Service Agreement is entered into between {freelancer} (\"Freelancer\") and {client_name} (\"Client\") for the project \"{project}\".",
+        "scope_of_work": "; ".join(scope) if scope else "As described in the accepted proposal.",
+        "deliverables_clause": f"Freelancer shall deliver: {'; '.join(deliverables) if deliverables else 'as outlined in proposal'}. Client has 7 business days to review each deliverable.",
+        "timeline_clause": "Work shall proceed according to the timeline outlined in the accepted proposal.",
+        "payment_clause": f"Total project fee: ${total:,.2f}. 50% due upon signing, 50% upon completion. Late payments incur 1.5% monthly fee after 30 days.",
+        "revisions_clause": "Two rounds of revisions are included. Additional revisions billed at the agreed hourly rate.",
+        "ip_clause": "All intellectual property rights transfer to Client upon receipt of full payment. Freelancer retains portfolio display rights.",
+        "confidentiality_clause": "Both parties agree to keep confidential any proprietary information shared during this project.",
+        "termination_clause": "Either party may terminate with 7 days written notice. Client pays for all work completed to date.",
+        "liability_clause": f"Freelancer's total liability shall not exceed the project fee of ${total:,.2f}.",
+    }
+
+
 def _fallback_proposal(project_type: str, scope: str, timeline: str, budget: str) -> dict:
     """Fallback proposal when AI is unavailable."""
     return {

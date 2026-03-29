@@ -107,18 +107,13 @@ async def download_file(file_id: int, user: dict = Depends(get_current_user)):
 
 @router.get("/portal/{share_token}")
 async def client_portal(share_token: str):
-    """Public: Client portal view for a project.
-    Uses the project's proposal share token to identify the project.
-    """
-    # Find project via any associated proposal/contract/invoice share token
-    proposal = db.query(
-        "SELECT * FROM proposals WHERE share_token = ?",
+    """Public: Client portal view for a project via project share token."""
+    project = db.query(
+        "SELECT * FROM projects WHERE share_token = ?",
         (share_token,), one=True
     )
-    if not proposal:
+    if not project:
         raise HTTPException(status_code=404, detail="Portal not found")
-
-    project = db.query("SELECT * FROM projects WHERE id = ?", (proposal["project_id"],), one=True)
     user = db.query("SELECT * FROM users WHERE id = ?", (project["user_id"],), one=True)
     client = db.query("SELECT * FROM clients WHERE id = ?", (project["client_id"],), one=True)
 
@@ -163,18 +158,16 @@ async def client_upload_file(
     file: UploadFile = File(...),
 ):
     """Public: Client uploads a file to the project portal."""
-    proposal = db.query(
-        "SELECT * FROM proposals WHERE share_token = ?",
+    project = db.query(
+        "SELECT * FROM projects WHERE share_token = ?",
         (share_token,), one=True
     )
-    if not proposal:
+    if not project:
         raise HTTPException(status_code=404, detail="Portal not found")
-
-    project = db.query("SELECT * FROM projects WHERE id = ?", (proposal["project_id"],), one=True)
-    if not project or project["status"] not in ("active", "proposed"):
+    if project["status"] not in ("active", "proposed"):
         raise HTTPException(status_code=400, detail="Project is not accepting uploads")
 
-    file_id = await _save_file(proposal["project_id"], file, "client")
+    file_id = await _save_file(project["id"], file, "client")
 
     # Notify freelancer
     user = db.query("SELECT * FROM users WHERE id = ?", (project["user_id"],), one=True)

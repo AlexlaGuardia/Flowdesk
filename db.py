@@ -44,6 +44,7 @@ CREATE TABLE IF NOT EXISTS projects (
     paid_amount REAL DEFAULT 0,
     start_date TEXT,
     due_date TEXT,
+    share_token TEXT UNIQUE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -190,6 +191,7 @@ CREATE TABLE IF NOT EXISTS files (
 CREATE INDEX IF NOT EXISTS idx_clients_user ON clients(user_id);
 CREATE INDEX IF NOT EXISTS idx_projects_user ON projects(user_id);
 CREATE INDEX IF NOT EXISTS idx_projects_client ON projects(client_id);
+CREATE INDEX IF NOT EXISTS idx_projects_share ON projects(share_token);
 CREATE INDEX IF NOT EXISTS idx_proposals_project ON proposals(project_id);
 CREATE INDEX IF NOT EXISTS idx_proposals_share ON proposals(share_token);
 CREATE INDEX IF NOT EXISTS idx_contracts_share ON contracts(share_token);

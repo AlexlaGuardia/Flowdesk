@@ -128,6 +128,7 @@ class ProjectOut(FlexModel):
     paid_amount: float
     start_date: Optional[str]
     due_date: Optional[str]
+    share_token: Optional[str] = None
     created_at: str
     updated_at: str
     milestones: list[MilestoneOut] = []

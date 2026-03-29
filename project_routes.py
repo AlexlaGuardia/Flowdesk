@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException
-from auth import get_current_user
+from auth import get_current_user, generate_share_token
 from models import (
     ProjectCreate, ProjectUpdate, ProjectOut, MilestoneOut,
     MilestoneCreate, MilestoneUpdate, ClientOut, MessageResponse
@@ -35,11 +35,12 @@ async def create_project(body: ProjectCreate, user: dict = Depends(get_current_u
     if not client:
         raise HTTPException(status_code=404, detail="Client not found")
 
+    share_token = generate_share_token()
     project_id = db.execute(
-        """INSERT INTO projects (user_id, client_id, name, description, total_amount, start_date, due_date)
-           VALUES (?, ?, ?, ?, ?, ?, ?)""",
+        """INSERT INTO projects (user_id, client_id, name, description, total_amount, start_date, due_date, share_token)
+           VALUES (?, ?, ?, ?, ?, ?, ?, ?)""",
         (user["id"], body.client_id, body.name, body.description,
-         body.total_amount, body.start_date, body.due_date)
+         body.total_amount, body.start_date, body.due_date, share_token)
     )
 
     # Create milestones if provided

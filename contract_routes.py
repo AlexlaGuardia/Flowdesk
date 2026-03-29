@@ -11,19 +11,23 @@ import config
 router = APIRouter(prefix="/contracts", tags=["contracts"])
 
 
-STANDARD_CLAUSES = {
-    "payment": "Payment is due according to the invoice schedule outlined in the accepted proposal. Late payments may incur a 1.5% monthly fee after 30 days overdue.",
-    "revisions": "This agreement includes up to two (2) rounds of revisions on all deliverables. Additional revisions will be billed at the agreed hourly rate.",
-    "ip_ownership": "Upon receipt of full payment, all intellectual property rights for deliverables created under this agreement transfer to the Client. The Freelancer retains the right to display the work in their portfolio.",
-    "cancellation": "Either party may cancel this agreement with 7 days written notice. The Client is responsible for payment of all work completed up to the cancellation date.",
-    "confidentiality": "Both parties agree to keep confidential any proprietary information shared during the course of this project.",
-    "liability": "The Freelancer's total liability under this agreement shall not exceed the total project fee.",
-}
-
-
-def _generate_contract_content(proposal: dict, project: dict, freelancer: dict, client: dict) -> dict:
-    """Generate contract content from an accepted proposal."""
+def _generate_contract_content(proposal: dict, project: dict, freelancer: dict, client_data: dict) -> dict:
+    """Generate contract content from an accepted proposal using AI."""
     proposal_content = json.loads(proposal["content_json"])
+
+    # Generate AI contract clauses
+    clauses = ai.generate_contract(
+        freelancer_name=freelancer["name"] or freelancer["business_name"] or freelancer["email"],
+        business_name=freelancer["business_name"] or freelancer["name"],
+        client_name=client_data["name"],
+        client_company=client_data["company"] or client_data["name"],
+        project_name=project["name"],
+        scope=proposal_content.get("scope_of_work", []),
+        deliverables=proposal_content.get("deliverables", []),
+        timeline=proposal_content.get("timeline_breakdown", []),
+        total_price=proposal_content.get("total_price", project["total_amount"]),
+        payment_terms=proposal_content.get("terms", "50% upfront, 50% on completion"),
+    )
 
     return {
         "title": f"Service Agreement — {project['name']}",
@@ -35,9 +39,9 @@ def _generate_contract_content(proposal: dict, project: dict, freelancer: dict, 
                 "email": freelancer["email"],
             },
             "client": {
-                "name": client["name"],
-                "company": client["company"],
-                "email": client["email"],
+                "name": client_data["name"],
+                "company": client_data["company"],
+                "email": client_data["email"],
             },
         },
         "project": {
@@ -51,8 +55,7 @@ def _generate_contract_content(proposal: dict, project: dict, freelancer: dict, 
             "items": proposal_content.get("pricing_table", []),
             "total": proposal_content.get("total_price", project["total_amount"]),
         },
-        "payment_terms": proposal_content.get("terms", STANDARD_CLAUSES["payment"]),
-        "clauses": STANDARD_CLAUSES,
+        "clauses": clauses,
     }
 
 
