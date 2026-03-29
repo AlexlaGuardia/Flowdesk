@@ -14,46 +14,109 @@
 }
 
 @layer components {
-  .letterpress {
-    text-shadow: 0 1px 0 rgba(255,253,247,0.4), 0 -1px 0 rgba(0,0,0,0.1);
+  /* ── CRT Effects ── */
+
+  .crt-scanlines {
+    position: relative;
   }
+  .crt-scanlines::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 0, 0, 0.04) 2px,
+      rgba(0, 0, 0, 0.04) 4px
+    );
+    pointer-events: none;
+    border-radius: inherit;
+    z-index: 2;
+  }
+
+  .crt-vignette {
+    position: relative;
+  }
+  .crt-vignette::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      ellipse at center,
+      transparent 50%,
+      rgba(0, 0, 0, 0.2) 100%
+    );
+    pointer-events: none;
+    border-radius: inherit;
+    z-index: 3;
+  }
+
+  .screen-glow {
+    box-shadow: 0 0 30px rgba(139, 58, 42, 0.25), 0 0 60px rgba(139, 58, 42, 0.1);
+  }
+
+  /* ── Stamp Badge ── */
 
   .stamp-badge {
-    @apply inline-flex items-center px-2 py-0.5 rounded-sm border-2 text-[10px] font-bold uppercase tracking-[0.15em] rotate-[-2deg] font-body;
+    @apply inline-flex items-center px-2 py-0.5 rounded-sm border-2 text-[10px] font-bold uppercase tracking-[0.15em] rotate-[-2deg] font-mono;
   }
 
+  /* ── Buttons ── */
+
   .btn-primary {
-    @apply bg-stamp-600 text-white font-semibold border-2 border-stamp-700 rounded-retro shadow-hard-brand
-           hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-hard-brand-sm
+    @apply bg-stamp-600 text-white font-semibold border-[3px] border-stamp-700 rounded-arcade shadow-arcade
+           uppercase font-mono tracking-wider
+           hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-arcade-sm hover:shadow-btn-glow
            active:translate-x-[2px] active:translate-y-[2px] active:shadow-none
            disabled:opacity-50 disabled:shadow-none disabled:translate-x-0 disabled:translate-y-0
            transition-all duration-100;
   }
 
   .btn-secondary {
-    @apply bg-paper text-ink-700 font-semibold border-2 border-ledger rounded-retro shadow-hard
+    @apply bg-paper text-ink-700 font-semibold border-[3px] border-ledger rounded-arcade shadow-hard
+           uppercase font-mono tracking-wider
            hover:bg-kraft hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-hard-sm
            active:translate-x-[2px] active:translate-y-[2px] active:shadow-none
            transition-all duration-100;
   }
 
   .btn-danger {
-    @apply bg-void-red text-white font-semibold border-2 border-void-red rounded-retro shadow-hard-brand
-           hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-hard-brand-sm
+    @apply bg-void-red text-white font-semibold border-[3px] border-void-red rounded-arcade shadow-arcade
+           uppercase font-mono tracking-wider
+           hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-arcade-sm
            active:translate-x-[2px] active:translate-y-[2px] active:shadow-none
            transition-all duration-100;
   }
 
+  .btn-insert-coin {
+    @apply btn-primary text-lg px-10 py-4 tracking-[0.2em];
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+  .btn-insert-coin:hover {
+    animation: none;
+    @apply shadow-btn-glow;
+  }
+
+  /* ── Cards ── */
+
   .card {
-    @apply bg-paper border-2 border-ledger rounded-retro shadow-hard-md;
+    @apply bg-paper border-[3px] border-ledger rounded-arcade shadow-hard-md;
   }
 
   .card-interactive {
     @apply card hover:shadow-hard-lg hover:-translate-x-[0.5px] hover:-translate-y-[0.5px] transition-all duration-100;
   }
 
+  .rpg-box {
+    @apply bg-stamp-800 border-[3px] border-stamp-600 rounded-arcade;
+    box-shadow: inset 0 0 0 2px #3D1810, 4px 4px 0px 0px #3D1810;
+  }
+
+  /* ── Forms ── */
+
   .input-field {
-    @apply w-full px-3 py-2 bg-paper border-2 border-ledger rounded-retro text-sm font-body text-ink-900
+    @apply w-full px-3 py-2 bg-paper border-[3px] border-ledger rounded-arcade text-sm font-body text-ink-900
            placeholder:text-ink-400 outline-none
            focus:border-stamp-600 focus:ring-2 focus:ring-stamp-200;
   }
@@ -62,24 +125,42 @@
     @apply block text-xs uppercase tracking-[0.15em] font-semibold text-ink-700 mb-1.5;
   }
 
+  /* ── Typography ── */
+
   .section-heading {
-    @apply text-xs uppercase tracking-[0.2em] font-semibold text-ink-500 mb-2 font-body;
+    @apply text-[9px] uppercase tracking-[0.2em] font-bold text-ink-500 mb-2 font-heading;
   }
 
   .page-title {
-    @apply text-3xl font-bold text-ink-900 font-heading letterpress;
+    @apply text-xl font-bold text-ink-900 font-heading tracking-wider;
   }
 
+  /* ── Empty States ── */
+
   .empty-stamp {
-    @apply border-4 border-dashed border-stamp-300 rounded-retro rotate-[-6deg] inline-block px-8 py-4;
+    @apply border-4 border-dashed border-stamp-300 rounded-arcade rotate-[-6deg] inline-block px-8 py-4;
   }
 
   .empty-stamp-text {
     @apply uppercase tracking-[0.2em] text-stamp-400 font-bold text-sm font-body;
   }
 
+  /* ── Links ── */
+
   .ink-link {
     @apply text-stamp-600 underline underline-offset-2 decoration-stamp-300
            hover:decoration-stamp-600 hover:decoration-2;
+  }
+
+  /* ── Arcade Nav ── */
+
+  .arcade-nav-item {
+    @apply flex items-center gap-3 px-3 py-2.5 rounded-arcade text-sm font-mono uppercase tracking-wider transition-colors;
+  }
+
+  /* ── Pixel Divider ── */
+
+  .pixel-divider {
+    @apply border-t-[3px] border-dashed border-ledger;
   }
 }

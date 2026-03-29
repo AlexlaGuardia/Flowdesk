@@ -15,7 +15,6 @@ const ACCENT_COLORS: Record<string, string> = {
 };
 
 export default function StatCard({ label, value, sub, color = "brand" }: StatCardProps) {
-  // Map old color names to new ones
   const colorKey = color === "indigo" ? "brand" : color;
   const accent = ACCENT_COLORS[colorKey] || ACCENT_COLORS.brand;
 

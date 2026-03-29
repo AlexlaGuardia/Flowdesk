@@ -1,78 +1,93 @@
 import Link from "next/link";
+import CRTScreen from "@/components/CRTScreen";
+
+const SERVICES = [
+  { title: "AI PROPOSALS", description: "Answer 5 questions. AI writes a branded proposal with scope, deliverables, and pricing.", icon: "\uD83D\uDCDC" },
+  { title: "AUTO CONTRACTS", description: "Client accepts? Contract generates automatically. One-click signature, done.", icon: "\uD83E\uDD1D" },
+  { title: "SMART INVOICING", description: "Milestone billing with Stripe payment links. AI follow-ups chase overdue payments for you.", icon: "\uD83D\uDCB0" },
+  { title: "CLIENT PORTAL", description: "One link gives your client everything: project status, files, invoices, milestones.", icon: "\uD83D\uDEAA" },
+  { title: "BILINGUAL", description: "English and Spanish. AI generates proposals, contracts, and follow-ups in either language.", icon: "\uD83C\uDF0E" },
+];
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-parchment">
-      {/* Nav */}
-      <nav className="flex items-center justify-between px-6 py-4 max-w-5xl mx-auto">
-        <h1 className="text-xl font-heading font-bold text-stamp-600 letterpress">Stampwerk</h1>
-        <Link
-          href="/login"
-          className="text-sm font-semibold text-stamp-600 hover:text-stamp-700"
-        >
-          Sign in
-        </Link>
-      </nav>
-
-      {/* Hero */}
-      <section className="max-w-3xl mx-auto px-6 py-24 text-center">
-        <h2 className="text-5xl font-heading font-black text-ink-900 tracking-tight letterpress">
-          Stop chasing clients.
-          <br />
-          <span className="text-stamp-600">Start getting paid.</span>
-        </h2>
-        <p className="mt-6 text-lg text-ink-500 max-w-xl mx-auto">
-          Answer 5 questions. AI generates a branded proposal. Client signs, contract auto-generates, invoices follow up automatically. All for $12/mo.
-        </p>
-        <div className="mt-10 flex gap-4 justify-center">
-          <Link
-            href="/login"
-            className="btn-primary px-8 py-3 text-sm"
-          >
-            Get Started Free
+    <div className="min-h-screen">
+      {/* ── Dark Arcade Section ── */}
+      <div className="bg-stamp-900 pb-16">
+        {/* Nav */}
+        <nav className="flex items-center justify-between px-6 py-5 max-w-5xl mx-auto">
+          <h1 className="font-heading text-base text-stamp-300 tracking-wider" style={{ textShadow: "0 0 10px rgba(139,58,42,0.5)" }}>
+            STAMPWERK
+          </h1>
+          <Link href="/login" className="font-mono text-xs text-stamp-400 hover:text-stamp-200 uppercase tracking-wider">
+            Sign In
           </Link>
-        </div>
-      </section>
+        </nav>
 
-      {/* Features */}
-      <section className="max-w-4xl mx-auto px-6 py-16">
-        <div className="grid md:grid-cols-3 gap-6">
-          {[
-            { title: "AI Proposals", desc: "Answer 5 questions, get a branded proposal with pricing table. No templates, no fiddling." },
-            { title: "Auto Contracts", desc: "Client accepts proposal? Contract generates automatically. One-click signature." },
-            { title: "Smart Invoicing", desc: "Milestone-based invoices with Stripe payment links. AI follow-ups for overdue payments." },
-          ].map((f) => (
-            <div key={f.title} className="card p-6 text-center">
-              <h3 className="font-heading font-bold text-ink-900 text-lg">{f.title}</h3>
-              <p className="mt-2 text-sm text-ink-500">{f.desc}</p>
+        {/* Title */}
+        <div className="text-center pt-8 pb-12 px-6">
+          <h2 className="font-heading text-2xl md:text-3xl text-stamp-200 tracking-wider" style={{ textShadow: "0 0 20px rgba(139,58,42,0.4)" }}>
+            STAMPWERK
+          </h2>
+          <p className="font-mono text-xs text-stamp-500 mt-3 tracking-[0.3em] uppercase">
+            Freelancer Battle Station
+          </p>
+        </div>
+
+        {/* CRT TV */}
+        <CRTScreen slides={SERVICES} autoPlayMs={4500} />
+
+        {/* Browse hint */}
+        <p className="text-center font-mono text-[10px] text-stamp-600 mt-6 tracking-wider">
+          USE &#9664; &#9654; TO BROWSE SERVICES
+        </p>
+      </div>
+
+      {/* ── Light Pricing Section ── */}
+      <div className="bg-parchment py-20 px-6">
+        <div className="max-w-lg mx-auto">
+          {/* Score-style pricing */}
+          <div className="font-mono text-sm text-ink-700 space-y-2 mb-10">
+            <div className="flex justify-between border-b border-dashed border-ledger pb-1">
+              <span className="uppercase tracking-wider">Subscription</span>
+              <span className="font-bold text-ink-900 text-lg">$12/MO</span>
             </div>
-          ))}
-        </div>
-      </section>
+            <div className="flex justify-between border-b border-dashed border-ledger pb-1">
+              <span className="uppercase tracking-wider">Clients</span>
+              <span className="text-ink-500">UNLIMITED</span>
+            </div>
+            <div className="flex justify-between border-b border-dashed border-ledger pb-1">
+              <span className="uppercase tracking-wider">Proposals</span>
+              <span className="text-ink-500">UNLIMITED</span>
+            </div>
+            <div className="flex justify-between border-b border-dashed border-ledger pb-1">
+              <span className="uppercase tracking-wider">Invoices</span>
+              <span className="text-ink-500">UNLIMITED</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="uppercase tracking-wider">Tiers</span>
+              <span className="text-stamp-600 font-bold">NONE</span>
+            </div>
+          </div>
 
-      {/* Pricing */}
-      <section className="max-w-md mx-auto px-6 py-16 text-center">
-        <div className="card p-8">
-          <p className="section-heading">Simple pricing</p>
-          <p className="mt-2 text-5xl font-bold font-mono text-ink-900">$12<span className="text-lg text-ink-400">/mo</span></p>
-          <p className="mt-3 text-sm text-ink-500">Everything included. No tiers. No surprises.</p>
-          <div className="mt-4 border-t-2 border-double border-ledger pt-4">
-            <Link
-              href="/login"
-              className="btn-primary inline-block px-8 py-3 text-sm"
-            >
-              Start Free Trial
+          {/* CTA */}
+          <div className="text-center">
+            <Link href="/login" className="btn-insert-coin inline-block">
+              PRESS START
             </Link>
+            <p className="font-mono text-[10px] text-ink-400 mt-4 tracking-wider animate-blink">
+              FREE TRIAL &mdash; NO CREDIT CARD
+            </p>
           </div>
         </div>
-      </section>
+      </div>
 
-      {/* Footer */}
-      <footer className="text-center py-8">
-        <div className="empty-stamp mx-auto rotate-[-4deg] mb-2" style={{ padding: "8px 20px" }}>
-          <span className="empty-stamp-text text-[10px]">Stampwerk</span>
+      {/* ── Footer ── */}
+      <footer className="bg-stamp-900 py-8 text-center">
+        <div className="empty-stamp mx-auto rotate-[-4deg]" style={{ padding: "6px 16px", borderColor: "#5C2419" }}>
+          <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-stamp-600">Stampwerk</span>
         </div>
-        <p className="text-xs text-ink-400">&copy; {new Date().getFullYear()}</p>
+        <p className="text-[10px] text-stamp-700 mt-3 font-mono">&copy; {new Date().getFullYear()}</p>
       </footer>
     </div>
   );

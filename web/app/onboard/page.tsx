@@ -73,7 +73,7 @@ export default function OnboardPage() {
             disabled={loading || !name}
             className="btn-primary w-full py-3 disabled:opacity-50"
           >
-            {loading ? "Setting up..." : "Get Started"}
+            {loading ? "LOADING..." : "PRESS START"}
           </button>
         </form>
       </div>

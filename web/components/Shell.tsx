@@ -18,12 +18,14 @@ export default function Shell({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="flex h-screen">
-      {/* Sidebar — dark mahogany filing cabinet */}
-      <aside className="w-56 bg-stamp-800 flex flex-col">
+      {/* Sidebar — arcade cabinet panel */}
+      <aside className="w-56 bg-gradient-to-b from-stamp-800 to-stamp-900 flex flex-col">
         <div className="p-5 border-b border-stamp-700">
-          <h1 className="text-xl font-heading font-bold text-stamp-200 letterpress">Stampwerk</h1>
+          <h1 className="font-heading text-[10px] text-stamp-300 tracking-wider" style={{ textShadow: "0 0 8px rgba(139,58,42,0.4)" }}>
+            STAMPWERK
+          </h1>
           {user?.business_name && (
-            <p className="text-xs text-stamp-400 mt-0.5 truncate">{user.business_name}</p>
+            <p className="text-xs text-stamp-500 mt-1 truncate font-mono">{user.business_name}</p>
           )}
         </div>
 
@@ -34,16 +36,17 @@ export default function Shell({ children }: { children: React.ReactNode }) {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`flex items-center gap-3 px-3 py-2 rounded-retro text-sm font-medium transition-colors ${
+                className={`arcade-nav-item ${
                   active
-                    ? "bg-stamp-900/60 text-white border-l-[3px] border-stamp-300"
-                    : "text-stamp-300 hover:bg-stamp-700/50 hover:text-stamp-100"
+                    ? "bg-stamp-900/60 text-white"
+                    : "text-stamp-400 hover:bg-stamp-700/40 hover:text-stamp-200"
                 }`}
               >
+                {active && <span className="text-stamp-300 text-[8px]">&#9654;</span>}
                 <svg className="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d={item.icon} />
                 </svg>
-                {item.label}
+                <span className="text-[10px]">{item.label}</span>
               </Link>
             );
           })}
@@ -51,13 +54,13 @@ export default function Shell({ children }: { children: React.ReactNode }) {
 
         <div className="p-3 border-t border-stamp-700">
           <div className="flex items-center gap-2 px-3 py-2">
-            <div className="w-7 h-7 rounded-retro bg-stamp-600 flex items-center justify-center text-xs font-bold text-stamp-100">
+            <div className="w-7 h-7 rounded-arcade bg-stamp-600 flex items-center justify-center text-[8px] font-bold text-stamp-200 font-mono">
               {user?.name?.[0] || user?.email?.[0] || "?"}
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium text-stamp-200 truncate">{user?.name || user?.email}</p>
+              <p className="text-xs font-mono text-stamp-300 truncate">{user?.name || user?.email}</p>
             </div>
-            <button onClick={logout} className="text-stamp-400 hover:text-stamp-200" title="Sign out">
+            <button onClick={logout} className="text-stamp-500 hover:text-stamp-300" title="Sign out">
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
               </svg>

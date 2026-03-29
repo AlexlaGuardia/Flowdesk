@@ -19,10 +19,29 @@ const STATUS_COLORS: Record<string, string> = {
   archived: "border-ink-400 text-ink-400",
 };
 
+const STATUS_ICONS: Record<string, string> = {
+  paid: "\u2713",
+  signed: "\u2713",
+  accepted: "\u2713",
+  completed: "\u2713",
+  active: "\u25CF",
+  in_progress: "\u25CF",
+  draft: "\u25CB",
+  pending: "\u25CB",
+  void: "\u2717",
+  voided: "\u2717",
+  declined: "\u2717",
+  overdue: "\u26A0",
+  expired: "\u2014",
+  archived: "\u2014",
+};
+
 export default function StatusBadge({ status }: { status: string }) {
   const color = STATUS_COLORS[status] || "border-ink-500 text-ink-500";
+  const icon = STATUS_ICONS[status];
   return (
     <span className={`stamp-badge ${color}`}>
+      {icon && <span className="mr-1">{icon}</span>}
       {status.replace(/_/g, " ")}
     </span>
   );

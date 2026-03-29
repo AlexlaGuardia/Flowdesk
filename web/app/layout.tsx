@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { Playfair_Display, IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
+import { Press_Start_2P, IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/lib/auth";
 
-const playfair = Playfair_Display({
+const pressStart = Press_Start_2P({
   subsets: ["latin"],
-  weight: ["700", "900"],
+  weight: ["400"],
   variable: "--font-heading",
 });
 
@@ -33,7 +33,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${playfair.variable} ${plexSans.variable} ${plexMono.variable} font-body`}>
+      <body className={`${pressStart.variable} ${plexSans.variable} ${plexMono.variable} font-body`}>
         <AuthProvider>{children}</AuthProvider>
       </body>
     </html>
