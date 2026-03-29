@@ -1,5 +1,6 @@
 import Link from "next/link";
 import CRTScreen from "@/components/CRTScreen";
+import StampwerkLogo from "@/components/StampwerkLogo";
 
 const SERVICES = [
   { title: "AI PROPOSALS", description: "Answer 5 questions. AI writes a branded proposal with scope, deliverables, and pricing.", icon: "📜" },
@@ -16,9 +17,12 @@ export default function Home() {
       <div className="bg-stamp-900 pb-20">
         {/* Nav */}
         <nav className="flex items-center justify-between px-6 py-5 max-w-5xl mx-auto border-b border-stamp-800">
-          <span className="font-heading text-[10px] text-stamp-500 tracking-wider">
-            STAMPWERK
-          </span>
+          <div className="flex items-center gap-2.5">
+            <StampwerkLogo size={24} />
+            <span className="font-heading text-[10px] text-stamp-500 tracking-wider">
+              STAMPWERK
+            </span>
+          </div>
           <Link
             href="/login"
             className="font-mono text-[10px] text-stamp-400 hover:text-stamp-200 uppercase tracking-[0.2em] transition-colors"

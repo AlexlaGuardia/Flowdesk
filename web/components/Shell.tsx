@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useAuth } from "@/lib/auth";
+import StampwerkLogo from "./StampwerkLogo";
 
 const NAV = [
   { href: "/dashboard", label: "Dashboard", icon: "M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" },
@@ -28,24 +29,22 @@ export default function Shell({ children }: { children: React.ReactNode }) {
       >
         {/* Logo area */}
         <div className="px-5 py-5 border-b border-stamp-800">
-          <div className="flex items-center gap-2 mb-1">
-            {/* Cabinet power LED */}
-            <div
-              className="w-1.5 h-1.5 rounded-full bg-ledger-green flex-shrink-0"
-              style={{ boxShadow: "0 0 4px rgba(61,107,79,0.9), 0 0 8px rgba(61,107,79,0.4)" }}
-            />
-            <h1
-              className="font-heading text-[9px] text-stamp-300 tracking-wider"
-              style={{ textShadow: "0 0 10px rgba(139,58,42,0.5)" }}
-            >
-              STAMPWERK
-            </h1>
+          <div className="flex items-center gap-2.5">
+            <StampwerkLogo size={28} />
+            <div>
+              <h1
+                className="font-heading text-[9px] text-stamp-300 tracking-wider"
+                style={{ textShadow: "0 0 10px rgba(139,58,42,0.5)" }}
+              >
+                STAMPWERK
+              </h1>
+              {user?.business_name && (
+                <p className="text-[10px] text-stamp-600 truncate font-mono tracking-wide mt-0.5">
+                  {user.business_name}
+                </p>
+              )}
+            </div>
           </div>
-          {user?.business_name && (
-            <p className="text-[10px] text-stamp-600 mt-1.5 truncate font-mono tracking-wide pl-3.5">
-              {user.business_name}
-            </p>
-          )}
         </div>
 
         {/* Nav */}

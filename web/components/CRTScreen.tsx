@@ -84,10 +84,6 @@ export default function CRTScreen({ slides, autoPlayMs = 4000, className = "" }:
                 <p className="text-stamp-400 text-sm leading-relaxed max-w-xs mx-auto">
                   {slide.description}
                 </p>
-                {/* Slide counter */}
-                <p className="font-mono text-[9px] text-stamp-700 mt-6 tracking-[0.2em]">
-                  {String(current + 1).padStart(2, "0")} / {String(slides.length).padStart(2, "0")}
-                </p>
               </div>
             </div>
           </div>
