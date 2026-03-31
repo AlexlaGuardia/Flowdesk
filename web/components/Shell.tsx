@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useAuth } from "@/lib/auth";
@@ -17,12 +18,40 @@ const NAV = [
 export default function Shell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const { user, logout } = useAuth();
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
     <div className="flex h-screen">
+      {/* Mobile header */}
+      <div className="md:hidden fixed top-0 left-0 right-0 z-30 flex items-center gap-3 px-4 py-3 bg-stamp-900 border-b border-stamp-800">
+        <button
+          onClick={() => setSidebarOpen(!sidebarOpen)}
+          className="text-stamp-400 hover:text-stamp-200 transition-colors"
+        >
+          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d={sidebarOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} />
+          </svg>
+        </button>
+        <StampwerkLogo size={20} />
+        <span className="font-heading text-[8px] text-stamp-300 tracking-wider">STAMPWERK</span>
+      </div>
+
+      {/* Sidebar overlay (mobile) */}
+      {sidebarOpen && (
+        <div
+          className="md:hidden fixed inset-0 z-20 bg-black/50"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+
       {/* Sidebar — arcade cabinet panel */}
       <aside
-        className="w-56 flex flex-col flex-shrink-0"
+        className={`
+          w-56 flex flex-col flex-shrink-0
+          fixed md:static inset-y-0 left-0 z-20
+          transform transition-transform duration-200 ease-in-out
+          ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0
+        `}
         style={{
           background: "linear-gradient(180deg, #3D1810 0%, #2a1209 60%, #1e0d07 100%)",
           boxShadow: "inset -1px 0 0 #5C2419, 2px 0 8px rgba(0,0,0,0.4)",
@@ -56,6 +85,7 @@ export default function Shell({ children }: { children: React.ReactNode }) {
               <Link
                 key={item.href}
                 href={item.href}
+                onClick={() => setSidebarOpen(false)}
                 className={`arcade-nav-item relative ${
                   active
                     ? "text-stamp-200 bg-stamp-900/70"
@@ -121,7 +151,7 @@ export default function Shell({ children }: { children: React.ReactNode }) {
 
       {/* Main content */}
       <main className="flex-1 overflow-y-auto bg-parchment">
-        <div className="max-w-5xl mx-auto px-6 py-8">
+        <div className="max-w-5xl mx-auto px-4 md:px-6 py-8 pt-16 md:pt-8">
           {children}
         </div>
       </main>

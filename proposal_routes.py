@@ -2,6 +2,7 @@ import json
 from fastapi import APIRouter, Depends, HTTPException, Request
 from auth import get_current_user, generate_share_token
 from models import ProposalWizard, ProposalOut, MessageResponse
+from tier import check_proposal_limit
 import db
 import ai
 import email_service
@@ -12,6 +13,7 @@ router = APIRouter(prefix="/proposals", tags=["proposals"])
 @router.post("/generate", response_model=MessageResponse)
 async def generate_proposal(body: ProposalWizard, user: dict = Depends(get_current_user)):
     """Generate an AI proposal from wizard inputs."""
+    check_proposal_limit(user)
     # Verify project belongs to user
     project = db.query(
         "SELECT * FROM projects WHERE id = ? AND user_id = ?",

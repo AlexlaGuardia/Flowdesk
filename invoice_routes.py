@@ -2,6 +2,7 @@ import json
 from fastapi import APIRouter, Depends, HTTPException, Request
 from auth import get_current_user, generate_share_token
 from models import InvoiceCreate, InvoiceOut, MessageResponse
+from tier import check_invoice_limit
 import db
 import config
 import stripe_service
@@ -23,6 +24,7 @@ def _next_invoice_number(user_id: int) -> str:
 @router.post("", response_model=MessageResponse)
 async def create_invoice(body: InvoiceCreate, user: dict = Depends(get_current_user)):
     """Create a new invoice with line items."""
+    check_invoice_limit(user)
     # Verify project belongs to user
     project = db.query(
         "SELECT * FROM projects WHERE id = ? AND user_id = ?",
