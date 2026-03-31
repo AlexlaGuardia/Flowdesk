@@ -2,7 +2,7 @@ import os
 from pathlib import Path
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv(override=True)
 
 BASE_DIR = Path(__file__).parent
 
@@ -33,6 +33,11 @@ GROQ_MODEL = os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile")
 STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY", "")
 STRIPE_WEBHOOK_SECRET = os.getenv("STRIPE_WEBHOOK_SECRET", "")
 STRIPE_PRICE_ID = os.getenv("STRIPE_PRICE_ID", "")
+
+# Google OAuth
+GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID", "")
+GOOGLE_CLIENT_SECRET = os.getenv("GOOGLE_CLIENT_SECRET", "")
+GOOGLE_REDIRECT_URI = f"{APP_URL}/api/auth/google/callback"
 
 # File uploads
 UPLOAD_DIR = BASE_DIR / "uploads"

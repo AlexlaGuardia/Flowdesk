@@ -94,6 +94,80 @@ async def verify_magic_link(token: str):
 
 
 from fastapi import Depends, HTTPException
+from fastapi.responses import RedirectResponse
+import httpx
+from urllib.parse import urlencode
+
+
+# ── Google OAuth ──
+
+@app.get("/auth/google")
+async def google_oauth_redirect():
+    """Redirect user to Google's OAuth consent screen."""
+    params = urlencode({
+        "client_id": config.GOOGLE_CLIENT_ID,
+        "redirect_uri": config.GOOGLE_REDIRECT_URI,
+        "response_type": "code",
+        "scope": "openid email profile",
+        "access_type": "offline",
+        "prompt": "select_account",
+    })
+    return RedirectResponse(f"https://accounts.google.com/o/oauth2/v2/auth?{params}")
+
+
+@app.get("/auth/google/callback")
+async def google_oauth_callback(code: str = None, error: str = None):
+    """Handle Google OAuth callback — exchange code for user info, issue JWT."""
+    if error or not code:
+        return RedirectResponse("/login?error=google_denied")
+
+    # Exchange code for tokens
+    async with httpx.AsyncClient() as client:
+        token_resp = await client.post("https://oauth2.googleapis.com/token", data={
+            "code": code,
+            "client_id": config.GOOGLE_CLIENT_ID,
+            "client_secret": config.GOOGLE_CLIENT_SECRET,
+            "redirect_uri": config.GOOGLE_REDIRECT_URI,
+            "grant_type": "authorization_code",
+        })
+        if token_resp.status_code != 200:
+            return RedirectResponse("/login?error=google_exchange_failed")
+        tokens = token_resp.json()
+
+        # Get user info
+        userinfo_resp = await client.get("https://www.googleapis.com/oauth2/v2/userinfo", headers={
+            "Authorization": f"Bearer {tokens['access_token']}"
+        })
+        if userinfo_resp.status_code != 200:
+            return RedirectResponse("/login?error=google_userinfo_failed")
+        userinfo = userinfo_resp.json()
+
+    email = userinfo.get("email")
+    if not email:
+        return RedirectResponse("/login?error=google_no_email")
+
+    # Get or create user
+    user = get_or_create_user(email)
+
+    # Update name from Google profile if user was just created (default name is email prefix)
+    google_name = userinfo.get("name", "")
+    if google_name and user["name"] == email.split("@")[0]:
+        db.execute("UPDATE users SET name = ? WHERE id = ?", (google_name, user["id"]))
+
+    # Issue JWT + cookie
+    jwt_token = create_jwt(user["id"], user["email"])
+    redirect_to = "/dashboard" if user["onboarded"] else "/onboard"
+    response = RedirectResponse(redirect_to, status_code=302)
+    response.set_cookie(
+        key="session",
+        value=jwt_token,
+        httponly=True,
+        secure=True,
+        samesite="lax",
+        max_age=config.JWT_EXPIRY_HOURS * 3600,
+    )
+    return response
+
 
 @app.get("/auth/me", response_model=UserOut)
 async def get_me(user: dict = Depends(get_current_user)):
@@ -137,6 +211,7 @@ from proposal_routes import router as proposal_router
 from invoice_routes import router as invoice_router
 from contract_routes import router as contract_router
 from portal_routes import router as portal_router
+from billing_routes import router as billing_router
 
 app.include_router(client_router)
 app.include_router(project_router)
@@ -144,6 +219,7 @@ app.include_router(proposal_router)
 app.include_router(invoice_router)
 app.include_router(contract_router)
 app.include_router(portal_router)
+app.include_router(billing_router)
 
 
 if __name__ == "__main__":

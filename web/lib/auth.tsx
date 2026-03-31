@@ -10,6 +10,7 @@ interface User {
   name: string | null;
   business_name: string | null;
   brand_color: string;
+  tier: string;
   onboarded: number;
 }
 
