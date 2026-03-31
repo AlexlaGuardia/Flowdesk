@@ -37,7 +37,7 @@ export default function OnboardPage() {
         <div className="mb-8">
           <div className="flex items-center gap-2 mb-4">
             <div className="h-px flex-1 bg-ledger" />
-            <span className="font-heading text-[8px] text-ink-400 tracking-[0.2em] uppercase">New Game</span>
+            <span className="font-heading text-[8px] text-ink-400 tracking-[0.2em] uppercase">Get Started</span>
             <div className="h-px flex-1 bg-ledger" />
           </div>
           <h1 className="font-heading text-[13px] text-ink-900 tracking-wider leading-relaxed">
@@ -102,7 +102,7 @@ export default function OnboardPage() {
               disabled={loading || !name}
               className="btn-insert-coin w-full disabled:opacity-50 disabled:animate-none disabled:shadow-arcade"
             >
-              {loading ? "LOADING..." : "PRESS START"}
+              {loading ? "LOADING..." : "COMPLETE SETUP"}
             </button>
             {!name && (
               <p className="font-mono text-[9px] text-ink-400 text-center mt-3 tracking-wider">

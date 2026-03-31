@@ -87,7 +87,7 @@ export default function LoginPage() {
               className="font-heading text-[11px] text-stamp-200 tracking-[0.2em] leading-relaxed"
               style={{ textShadow: "0 0 14px rgba(229,174,159,0.35)" }}
             >
-              INSERT COIN
+              SIGN IN
             </h1>
             <p className="font-mono text-[10px] text-stamp-600 mt-2 tracking-[0.2em] uppercase">
               Stampwerk
@@ -132,7 +132,7 @@ export default function LoginPage() {
               disabled={loading}
               className="btn-insert-coin w-full disabled:opacity-50 disabled:animate-none disabled:shadow-arcade"
             >
-              {loading ? "SENDING..." : "PRESS START"}
+              {loading ? "SENDING..." : "SEND MAGIC LINK"}
             </button>
           </form>
 

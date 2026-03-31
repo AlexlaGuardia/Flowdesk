@@ -101,7 +101,7 @@ export default function Home() {
           {/* CTA */}
           <div className="text-center">
             <Link href="/login" className="btn-insert-coin inline-block">
-              PRESS START
+              START FREE
             </Link>
             <p className="font-mono text-[9px] text-ink-400 mt-5 tracking-[0.2em] animate-blink">
               FREE TRIAL &mdash; NO CREDIT CARD
