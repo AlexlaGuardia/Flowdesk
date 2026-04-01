@@ -22,9 +22,34 @@ const plexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Stampwerk",
-  description: "AI-powered freelancer business tool",
+  title: "Stampwerk — AI Freelancer Tool | HoneyBook Alternative at $12/mo",
+  description:
+    "AI proposals, contracts, invoicing, and client portal for freelancers. The HoneyBook alternative that does the 80% that matters — for $12/mo flat. No tiers, no setup consultants.",
   icons: { icon: "/favicon.svg" },
+  keywords: [
+    "honeybook alternative",
+    "freelancer invoicing tool",
+    "AI proposal generator",
+    "dubsado alternative",
+    "freelancer business tool",
+    "freelance proposal software",
+    "client portal freelancer",
+    "cheap honeybook alternative 2026",
+  ],
+  openGraph: {
+    title: "Stampwerk — Stop Overpaying for Freelancer Tools",
+    description:
+      "AI writes your proposals. Contracts auto-generate. Invoices chase themselves. $12/mo flat — not $59.",
+    url: "https://stampwerk.com",
+    siteName: "Stampwerk",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Stampwerk — AI Freelancer Tool at $12/mo",
+    description:
+      "AI proposals, auto contracts, smart invoicing. The HoneyBook alternative built for freelancers who hate bloat.",
+  },
 };
 
 export default function RootLayout({
