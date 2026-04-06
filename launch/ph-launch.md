@@ -6,17 +6,17 @@ Stampwerk
 ## Tagline (under 60 chars)
 AI proposals + invoicing for freelancers at $12/mo
 
-## Description
+## Description (490 chars, limit 500)
 
-HoneyBook hiked prices 89%. AND.CO shut down. Bonsai got acquired with no roadmap. Three freelancer tools died in two months.
+HoneyBook hiked prices 89%. AND.CO shut down. Bonsai got acquired. Three freelancer tools died in two months.
 
-Stampwerk replaces the 80% that matters: proposals, contracts, invoices, and follow-ups. At $12/mo instead of $59.
+Stampwerk replaces the 80% that matters at $12/mo instead of $59.
 
-The AI writes full proposals from 5 inputs -- scope, timeline, pricing breakdown, payment terms. Not template-fill. Actual structured output from Llama 3.3 70B.
+AI writes full proposals from 5 inputs. Not template-fill. Structured output from Llama 3.3 70B.
 
-Accepted proposal? Auto-generates a contract. Signed contract? Auto-creates an invoice with a Stripe payment link. Invoice overdue? A 3-step follow-up daemon sends escalating reminders so you don't have to chase clients.
+Accepted proposal auto-generates a contract. Signed contract auto-creates a Stripe invoice. Overdue? A 3-step daemon sends escalating reminders so you never chase clients.
 
-30-second onboarding. No setup wizard. No onboarding call. Free tier included.
+30-second onboarding. Free tier included.
 
 ## Topics
 - Freelance
