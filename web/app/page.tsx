@@ -199,6 +199,15 @@ export default function Home() {
               );
             })}
           </div>
+
+          <div className="text-center mt-8">
+            <Link
+              href="/compare"
+              className="font-mono text-[10px] text-stamp-400 hover:text-stamp-200 tracking-[0.2em] uppercase transition-colors"
+            >
+              Full feature-by-feature comparison &#9654;
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -274,6 +283,21 @@ export default function Home() {
           <span className="font-heading text-[8px] uppercase tracking-[0.25em] text-stamp-600">
             Stampwerk
           </span>
+        </div>
+        <div className="flex items-center justify-center gap-4 mb-4">
+          <Link
+            href="/"
+            className="font-mono text-[9px] text-stamp-600 hover:text-stamp-400 tracking-wider transition-colors"
+          >
+            Home
+          </Link>
+          <span className="text-stamp-800">|</span>
+          <Link
+            href="/compare"
+            className="font-mono text-[9px] text-stamp-600 hover:text-stamp-400 tracking-wider transition-colors"
+          >
+            Compare
+          </Link>
         </div>
         <p className="font-mono text-[9px] text-stamp-700 tracking-wider">
           &copy; {new Date().getFullYear()} &nbsp;&#9632;&nbsp; For freelancers, by freelancers
