@@ -59,7 +59,7 @@
   /* ── Stamp Badge ── */
 
   .stamp-badge {
-    @apply inline-flex items-center px-2 py-0.5 rounded-sm border-2 text-[10px] font-bold uppercase tracking-[0.15em] rotate-[-2deg] font-mono;
+    @apply inline-flex items-center px-2 py-0.5 rounded-sm border-2 text-xs font-bold uppercase tracking-[0.15em] rotate-[-2deg] font-mono;
   }
 
   /* ── Buttons ── */
@@ -128,7 +128,7 @@
   /* ── Typography ── */
 
   .section-heading {
-    @apply text-[9px] uppercase tracking-[0.2em] font-bold text-ink-500 mb-2 font-heading;
+    @apply text-xs uppercase tracking-[0.2em] font-bold text-ink-500 mb-2 font-heading;
   }
 
   .page-title {

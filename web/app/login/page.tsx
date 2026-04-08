@@ -34,7 +34,7 @@ export default function LoginPage() {
               className="border-4 border-dashed border-stamp-600 rounded-arcade px-8 py-5 rotate-[-2deg]"
               style={{ boxShadow: "3px 3px 0 #1e0d07" }}
             >
-              <p className="font-heading text-[9px] text-stamp-300 tracking-[0.2em] uppercase">
+              <p className="font-heading text-xs text-stamp-300 tracking-[0.2em] uppercase">
                 Link Sent
               </p>
             </div>
@@ -48,7 +48,7 @@ export default function LoginPage() {
           </p>
           <button
             onClick={() => setSent(false)}
-            className="mt-8 font-mono text-[10px] text-stamp-600 hover:text-stamp-400 uppercase tracking-[0.15em] transition-colors"
+            className="mt-8 font-mono text-xs text-stamp-600 hover:text-stamp-400 uppercase tracking-[0.15em] transition-colors"
           >
             &#9664; Use a different email
           </button>
@@ -84,12 +84,12 @@ export default function LoginPage() {
               style={{ boxShadow: "0 0 6px rgba(61,107,79,0.9)" }}
             />
             <h1
-              className="font-heading text-[11px] text-stamp-200 tracking-[0.2em] leading-relaxed"
+              className="font-heading text-xs text-stamp-200 tracking-[0.2em] leading-relaxed"
               style={{ textShadow: "0 0 14px rgba(229,174,159,0.35)" }}
             >
               SIGN IN
             </h1>
-            <p className="font-mono text-[10px] text-stamp-600 mt-2 tracking-[0.2em] uppercase">
+            <p className="font-mono text-xs text-stamp-600 mt-2 tracking-[0.2em] uppercase">
               Stampwerk
             </p>
           </div>
@@ -103,13 +103,13 @@ export default function LoginPage() {
             boxShadow: "0 8px 0 #1e0d07, 4px 4px 0 #1e0d07, -4px 4px 0 #1e0d07",
           }}
         >
-          <p className="font-mono text-[10px] text-stamp-500 mb-5 text-center tracking-[0.15em] uppercase">
+          <p className="font-mono text-xs text-stamp-500 mb-5 text-center tracking-[0.15em] uppercase">
             No password needed &mdash; we&apos;ll email you a link.
           </p>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block font-mono text-[9px] text-stamp-500 uppercase tracking-[0.2em] mb-2">
+              <label className="block font-mono text-xs text-stamp-500 uppercase tracking-[0.2em] mb-2">
                 Your email
               </label>
               <input
@@ -125,7 +125,7 @@ export default function LoginPage() {
               />
             </div>
             {error && (
-              <p className="font-mono text-[10px] text-void-red tracking-wider">{error}</p>
+              <p className="font-mono text-xs text-void-red tracking-wider">{error}</p>
             )}
             <button
               type="submit"
@@ -139,7 +139,7 @@ export default function LoginPage() {
           {/* Divider */}
           <div className="flex items-center gap-3 my-5">
             <div className="flex-1 h-px bg-stamp-700" />
-            <span className="font-mono text-[9px] text-stamp-600 uppercase tracking-[0.2em]">or</span>
+            <span className="font-mono text-xs text-stamp-600 uppercase tracking-[0.2em]">or</span>
             <div className="flex-1 h-px bg-stamp-700" />
           </div>
 
@@ -148,7 +148,7 @@ export default function LoginPage() {
             href="/api/auth/google"
             className="flex items-center justify-center gap-2 w-full px-3 py-2.5
                        bg-stamp-900 border-[3px] border-stamp-700 rounded-arcade
-                       font-mono text-[10px] text-stamp-300 uppercase tracking-[0.15em]
+                       font-mono text-xs text-stamp-300 uppercase tracking-[0.15em]
                        hover:border-stamp-500 hover:text-stamp-200 transition-colors"
           >
             <svg width="16" height="16" viewBox="0 0 24 24" className="flex-shrink-0">
@@ -161,7 +161,7 @@ export default function LoginPage() {
           </a>
 
           {/* Blinking prompt */}
-          <p className="font-mono text-[9px] text-stamp-700 text-center mt-5 tracking-[0.2em] animate-blink">
+          <p className="font-mono text-xs text-stamp-700 text-center mt-5 tracking-[0.2em] animate-blink">
             &#9608;
           </p>
         </div>

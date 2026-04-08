@@ -167,13 +167,13 @@ export default function ComparePage() {
       <nav className="flex items-center justify-between px-6 py-5 max-w-5xl mx-auto">
         <Link href="/" className="flex items-center gap-2.5">
           <StampwerkLogo size={24} />
-          <span className="font-heading text-[10px] text-stamp-600 tracking-wider">
+          <span className="font-heading text-xs text-stamp-600 tracking-wider">
             STAMPWERK
           </span>
         </Link>
         <Link
           href="/login"
-          className="font-mono text-[10px] text-stamp-500 hover:text-stamp-700 uppercase tracking-[0.2em] transition-colors"
+          className="font-mono text-xs text-stamp-500 hover:text-stamp-700 uppercase tracking-[0.2em] transition-colors"
         >
           Sign In &#9654;
         </Link>
@@ -182,7 +182,7 @@ export default function ComparePage() {
       {/* Hero */}
       <section className="bg-stamp-900 py-20 md:py-24 px-6">
         <div className="max-w-3xl mx-auto text-center">
-          <p className="font-mono text-[10px] text-stamp-400 tracking-[0.3em] uppercase mb-6">
+          <p className="font-mono text-xs text-stamp-400 tracking-[0.3em] uppercase mb-6">
             Freelancer Tool Comparison 2026
           </p>
           <h1
@@ -203,7 +203,7 @@ export default function ComparePage() {
       <section className="py-16 px-6 bg-kraft">
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-10">
-            <p className="font-heading text-[9px] text-ink-400 tracking-[0.25em] uppercase">
+            <p className="font-heading text-sm text-ink-700 tracking-[0.25em] uppercase">
               What happened
             </p>
             <div className="h-px bg-ledger mt-3 max-w-[80px] mx-auto" />
@@ -212,7 +212,7 @@ export default function ComparePage() {
           <div className="space-y-4">
             {EVENTS.map((e) => (
               <div key={e.date} className="card p-5 flex items-start gap-4">
-                <span className="font-mono text-[10px] text-stamp-600 tracking-wider whitespace-nowrap mt-0.5">
+                <span className="font-mono text-xs text-stamp-600 tracking-wider whitespace-nowrap mt-0.5">
                   {e.date}
                 </span>
                 <div>
@@ -231,7 +231,7 @@ export default function ComparePage() {
       <section className="py-20 px-6 bg-stamp-900">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-14">
-            <p className="font-heading text-[9px] text-stamp-400 tracking-[0.25em] uppercase">
+            <p className="font-heading text-sm text-stamp-400 tracking-[0.25em] uppercase">
               Monthly Cost
             </p>
             <h2
@@ -259,7 +259,7 @@ export default function ComparePage() {
                     : "bg-paper border border-ledger"
                 }`}
               >
-                <p className="font-mono text-[10px] text-ink-500 tracking-wider mb-2">
+                <p className="font-mono text-xs text-ink-500 tracking-wider mb-2">
                   {t.name}
                 </p>
                 <p
@@ -269,7 +269,7 @@ export default function ComparePage() {
                 >
                   {t.price}
                 </p>
-                <p className="font-mono text-[9px] text-ink-400 mt-1">{t.sub}</p>
+                <p className="font-mono text-xs text-ink-400 mt-1">{t.sub}</p>
               </div>
             ))}
           </div>
@@ -280,7 +280,7 @@ export default function ComparePage() {
       <section className="py-20 px-6 bg-parchment">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-14">
-            <p className="font-heading text-[9px] text-ink-400 tracking-[0.25em] uppercase">
+            <p className="font-heading text-sm text-ink-700 tracking-[0.25em] uppercase">
               Feature by Feature
             </p>
             <h2 className="font-heading text-sm md:text-base text-ink-900 tracking-wider mt-3">
@@ -296,7 +296,7 @@ export default function ComparePage() {
                 (h) => (
                   <span
                     key={h}
-                    className="font-heading text-[7px] text-stamp-400 tracking-wider"
+                    className="font-heading text-xs text-stamp-400 tracking-wider"
                   >
                     {h}
                   </span>
@@ -310,22 +310,22 @@ export default function ComparePage() {
                   i % 2 === 0 ? "bg-paper" : "bg-parchment"
                 }`}
               >
-                <span className="font-mono text-[11px] text-ink-900 font-semibold tracking-wide">
+                <span className="font-mono text-xs text-ink-900 font-semibold tracking-wide">
                   {row.feature}
                 </span>
-                <span className="text-[11px] text-stamp-700 font-medium leading-snug">
+                <span className="text-xs text-stamp-700 font-medium leading-snug">
                   {row.stampwerk}
                 </span>
-                <span className="text-[11px] text-ink-500 leading-snug">
+                <span className="text-xs text-ink-500 leading-snug">
                   {row.honeybook}
                 </span>
-                <span className="text-[11px] text-ink-500 leading-snug">
+                <span className="text-xs text-ink-500 leading-snug">
                   {row.dubsado}
                 </span>
-                <span className="text-[11px] text-ink-500 leading-snug">
+                <span className="text-xs text-ink-500 leading-snug">
                   {row.moxie}
                 </span>
-                <span className="text-[11px] text-ink-500 leading-snug">
+                <span className="text-xs text-ink-500 leading-snug">
                   {row.bonsai}
                 </span>
               </div>
@@ -336,12 +336,12 @@ export default function ComparePage() {
           <div className="lg:hidden space-y-6">
             {FEATURES.map((row) => (
               <div key={row.feature} className="card p-5">
-                <p className="font-heading text-[9px] text-ink-900 tracking-[0.15em] uppercase mb-4">
+                <p className="font-heading text-xs text-ink-900 tracking-[0.15em] uppercase mb-4">
                   {row.feature}
                 </p>
                 <div className="space-y-3">
                   <div className="flex gap-3 items-start">
-                    <span className="font-mono text-[9px] text-stamp-600 tracking-wider w-20 shrink-0 mt-0.5">
+                    <span className="font-mono text-xs text-stamp-600 tracking-wider w-20 shrink-0 mt-0.5">
                       Stampwerk
                     </span>
                     <span className="text-xs text-stamp-700 font-medium leading-snug">
@@ -349,25 +349,25 @@ export default function ComparePage() {
                     </span>
                   </div>
                   <div className="flex gap-3 items-start">
-                    <span className="font-mono text-[9px] text-ink-400 tracking-wider w-20 shrink-0 mt-0.5">
+                    <span className="font-mono text-xs text-ink-400 tracking-wider w-20 shrink-0 mt-0.5">
                       HoneyBook
                     </span>
                     <span className="text-xs text-ink-500 leading-snug">{row.honeybook}</span>
                   </div>
                   <div className="flex gap-3 items-start">
-                    <span className="font-mono text-[9px] text-ink-400 tracking-wider w-20 shrink-0 mt-0.5">
+                    <span className="font-mono text-xs text-ink-400 tracking-wider w-20 shrink-0 mt-0.5">
                       Dubsado
                     </span>
                     <span className="text-xs text-ink-500 leading-snug">{row.dubsado}</span>
                   </div>
                   <div className="flex gap-3 items-start">
-                    <span className="font-mono text-[9px] text-ink-400 tracking-wider w-20 shrink-0 mt-0.5">
+                    <span className="font-mono text-xs text-ink-400 tracking-wider w-20 shrink-0 mt-0.5">
                       Moxie
                     </span>
                     <span className="text-xs text-ink-500 leading-snug">{row.moxie}</span>
                   </div>
                   <div className="flex gap-3 items-start">
-                    <span className="font-mono text-[9px] text-ink-400 tracking-wider w-20 shrink-0 mt-0.5">
+                    <span className="font-mono text-xs text-ink-400 tracking-wider w-20 shrink-0 mt-0.5">
                       Bonsai
                     </span>
                     <span className="text-xs text-ink-500 leading-snug">{row.bonsai}</span>
@@ -383,7 +383,7 @@ export default function ComparePage() {
       <section className="py-20 px-6 bg-paper">
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-14">
-            <p className="font-heading text-[9px] text-ink-400 tracking-[0.25em] uppercase">
+            <p className="font-heading text-sm text-ink-700 tracking-[0.25em] uppercase">
               The honest breakdown
             </p>
             <h2 className="font-heading text-sm md:text-base text-ink-900 tracking-wider mt-3">
@@ -396,24 +396,24 @@ export default function ComparePage() {
             {COMPETITORS.map((c) => (
               <div key={c.name} className="card p-6">
                 <div className="flex items-start justify-between mb-4">
-                  <h3 className="font-heading text-[10px] text-ink-900 tracking-[0.15em] uppercase">
+                  <h3 className="font-heading text-xs text-ink-900 tracking-[0.15em] uppercase">
                     {c.name}
                   </h3>
-                  <span className="font-mono text-[9px] text-stamp-500 tracking-wider">
+                  <span className="font-mono text-xs text-stamp-500 tracking-wider">
                     {c.verdict}
                   </span>
                 </div>
                 <ul className="space-y-2 mb-4">
                   {c.pain.map((p, i) => (
                     <li key={i} className="flex items-start gap-2">
-                      <span className="text-void-red mt-1 text-[10px]">&#9632;</span>
+                      <span className="text-void-red mt-1 text-xs">&#9632;</span>
                       <span className="text-sm text-ink-600 leading-relaxed">{p}</span>
                     </li>
                   ))}
                 </ul>
                 <div className="border-t border-dashed border-ledger pt-3">
                   <p className="text-xs text-ink-400">
-                    <span className="font-mono text-[9px] tracking-wider text-ink-500">
+                    <span className="font-mono text-xs tracking-wider text-ink-500">
                       Best for:{" "}
                     </span>
                     {c.who}
@@ -428,7 +428,7 @@ export default function ComparePage() {
       {/* Stampwerk pitch */}
       <section className="py-20 px-6 bg-stamp-900">
         <div className="max-w-3xl mx-auto text-center">
-          <p className="font-mono text-[10px] text-stamp-400 tracking-[0.3em] uppercase mb-6">
+          <p className="font-mono text-xs text-stamp-400 tracking-[0.3em] uppercase mb-6">
             Where Stampwerk fits
           </p>
           <h2
@@ -461,7 +461,7 @@ export default function ComparePage() {
             ].map((card) => (
               <div key={card.label} className="rounded-arcade bg-stamp-800 p-5">
                 <p
-                  className="font-heading text-[10px] text-crt-amber tracking-wider mb-2"
+                  className="font-heading text-xs text-crt-amber tracking-wider mb-2"
                   style={{ textShadow: "0 0 8px rgba(255,176,0,0.3)" }}
                 >
                   {card.label}
@@ -475,7 +475,7 @@ export default function ComparePage() {
             <Link href="/login" className="btn-insert-coin inline-block">
               START FREE
             </Link>
-            <p className="font-mono text-[9px] text-stamp-500 mt-5 tracking-[0.2em]">
+            <p className="font-mono text-xs text-stamp-500 mt-5 tracking-[0.2em]">
               No credit card required
             </p>
           </div>
@@ -486,26 +486,26 @@ export default function ComparePage() {
       <footer className="bg-stamp-900 border-t border-stamp-800 py-10 text-center">
         <div className="flex items-center justify-center gap-2.5 mb-4">
           <StampwerkLogo size={20} />
-          <span className="font-heading text-[8px] uppercase tracking-[0.25em] text-stamp-600">
+          <span className="font-heading text-xs uppercase tracking-[0.25em] text-stamp-600">
             Stampwerk
           </span>
         </div>
         <div className="flex items-center justify-center gap-4 mb-4">
           <Link
             href="/"
-            className="font-mono text-[9px] text-stamp-600 hover:text-stamp-400 tracking-wider transition-colors"
+            className="font-mono text-xs text-stamp-600 hover:text-stamp-400 tracking-wider transition-colors"
           >
             Home
           </Link>
           <span className="text-stamp-800">|</span>
           <Link
             href="/compare"
-            className="font-mono text-[9px] text-stamp-600 hover:text-stamp-400 tracking-wider transition-colors"
+            className="font-mono text-xs text-stamp-600 hover:text-stamp-400 tracking-wider transition-colors"
           >
             Compare
           </Link>
         </div>
-        <p className="font-mono text-[9px] text-stamp-700 tracking-wider">
+        <p className="font-mono text-xs text-stamp-700 tracking-wider">
           &copy; {new Date().getFullYear()} &nbsp;&#9632;&nbsp; For freelancers, by freelancers
         </p>
         <div className="flex items-center justify-center gap-3 mt-4">

@@ -33,7 +33,7 @@ export default function Shell({ children }: { children: React.ReactNode }) {
           </svg>
         </button>
         <StampwerkLogo size={20} />
-        <span className="font-heading text-[8px] text-stamp-300 tracking-wider">STAMPWERK</span>
+        <span className="font-heading text-xs text-stamp-300 tracking-wider">STAMPWERK</span>
       </div>
 
       {/* Sidebar overlay (mobile) */}
@@ -63,13 +63,13 @@ export default function Shell({ children }: { children: React.ReactNode }) {
             <StampwerkLogo size={28} />
             <div>
               <h1
-                className="font-heading text-[9px] text-stamp-300 tracking-wider"
+                className="font-heading text-xs text-stamp-300 tracking-wider"
                 style={{ textShadow: "0 0 10px rgba(139,58,42,0.5)" }}
               >
                 STAMPWERK
               </h1>
               {user?.business_name && (
-                <p className="text-[10px] text-stamp-600 truncate font-mono tracking-wide mt-0.5">
+                <p className="text-xs text-stamp-600 truncate font-mono tracking-wide mt-0.5">
                   {user.business_name}
                 </p>
               )}
@@ -95,7 +95,7 @@ export default function Shell({ children }: { children: React.ReactNode }) {
               >
                 {/* Active indicator bar */}
                 {active && (
-                  <span className="absolute left-0 top-1/2 -translate-y-1/2 font-mono text-[7px] text-stamp-400 pl-1">
+                  <span className="absolute left-0 top-1/2 -translate-y-1/2 font-mono text-xs text-stamp-400 pl-1">
                     &#9658;
                   </span>
                 )}
@@ -108,7 +108,7 @@ export default function Shell({ children }: { children: React.ReactNode }) {
                 >
                   <path strokeLinecap="round" strokeLinejoin="round" d={item.icon} />
                 </svg>
-                <span className="text-[9px] tracking-[0.15em]">{item.label}</span>
+                <span className="text-xs tracking-[0.15em]">{item.label}</span>
               </Link>
             );
           })}
@@ -122,7 +122,7 @@ export default function Shell({ children }: { children: React.ReactNode }) {
           >
             {/* Avatar badge */}
             <div
-              className="w-7 h-7 rounded-retro flex items-center justify-center text-[8px] font-bold text-stamp-200 font-mono flex-shrink-0 border border-stamp-700"
+              className="w-7 h-7 rounded-retro flex items-center justify-center text-xs font-bold text-stamp-200 font-mono flex-shrink-0 border border-stamp-700"
               style={{
                 background: "linear-gradient(135deg, #5C2419 0%, #3D1810 100%)",
                 boxShadow: "1px 1px 0 #1e0d07",
@@ -131,10 +131,10 @@ export default function Shell({ children }: { children: React.ReactNode }) {
               {user?.name?.[0]?.toUpperCase() || user?.email?.[0]?.toUpperCase() || "?"}
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-[9px] font-mono text-stamp-400 truncate leading-tight">
+              <p className="text-xs font-mono text-stamp-400 truncate leading-tight">
                 {user?.name || user?.email}
               </p>
-              <p className="text-[8px] font-mono text-stamp-700 tracking-wider">ONLINE</p>
+              <p className="text-xs font-mono text-stamp-700 tracking-wider">ONLINE</p>
             </div>
             <button
               onClick={logout}

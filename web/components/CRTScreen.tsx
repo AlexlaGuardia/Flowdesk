@@ -76,7 +76,7 @@ export default function CRTScreen({ slides, autoPlayMs = 4000, className = "" }:
               <div className={`text-center transition-opacity duration-150 ${animating ? "opacity-0" : "opacity-100"}`}>
                 <div className="text-5xl mb-5">{slide.icon}</div>
                 <h3
-                  className="font-heading text-[11px] md:text-[13px] text-stamp-200 tracking-[0.15em] mb-4 leading-relaxed"
+                  className="font-heading text-xs md:text-[13px] text-stamp-200 tracking-[0.15em] mb-4 leading-relaxed"
                   style={{ textShadow: "0 0 12px rgba(229,174,159,0.4)" }}
                 >
                   {slide.title}
@@ -93,7 +93,7 @@ export default function CRTScreen({ slides, autoPlayMs = 4000, className = "" }:
         <div className="flex items-center justify-between mt-5 px-1">
           <button
             onClick={prev}
-            className="font-mono text-[10px] text-stamp-500 hover:text-stamp-200 tracking-[0.15em] uppercase transition-colors px-2 py-1 rounded hover:bg-stamp-800/50 active:translate-y-[1px]"
+            className="font-mono text-xs text-stamp-500 hover:text-stamp-200 tracking-[0.15em] uppercase transition-colors px-2 py-1 rounded hover:bg-stamp-800/50 active:translate-y-[1px]"
           >
             &#9664; PREV
           </button>
@@ -121,7 +121,7 @@ export default function CRTScreen({ slides, autoPlayMs = 4000, className = "" }:
 
           <button
             onClick={next}
-            className="font-mono text-[10px] text-stamp-500 hover:text-stamp-200 tracking-[0.15em] uppercase transition-colors px-2 py-1 rounded hover:bg-stamp-800/50 active:translate-y-[1px]"
+            className="font-mono text-xs text-stamp-500 hover:text-stamp-200 tracking-[0.15em] uppercase transition-colors px-2 py-1 rounded hover:bg-stamp-800/50 active:translate-y-[1px]"
           >
             NEXT &#9654;
           </button>

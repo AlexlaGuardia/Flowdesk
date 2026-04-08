@@ -48,24 +48,24 @@ export default function DashboardPage() {
           className="rounded-arcade p-6 mb-8 border-2 border-stamp-500 text-center"
           style={{ background: "linear-gradient(135deg, #3D1810 0%, #5C2419 100%)" }}
         >
-          <h2 className="font-heading text-[11px] text-stamp-200 tracking-[0.2em] mb-2">
+          <h2 className="font-heading text-xs text-stamp-200 tracking-[0.2em] mb-2">
             WELCOME TO STAMPWERK
           </h2>
-          <p className="font-mono text-[10px] text-stamp-400 tracking-wider mb-5 max-w-md mx-auto">
+          <p className="font-mono text-xs text-stamp-400 tracking-wider mb-5 max-w-md mx-auto">
             Create your first client, then generate an AI proposal in seconds.
             Your client receives a branded link to view, accept, and sign.
           </p>
           <div className="flex items-center justify-center gap-3">
             <Link
               href="/clients"
-              className="btn-insert-coin inline-block text-[10px] px-5 py-2"
+              className="btn-insert-coin inline-block text-xs px-5 py-2"
             >
               ADD YOUR FIRST CLIENT
             </Link>
-            <span className="font-mono text-[9px] text-stamp-600">then</span>
+            <span className="font-mono text-xs text-stamp-600">then</span>
             <Link
               href="/proposals/new"
-              className="font-mono text-[10px] text-stamp-300 hover:text-stamp-200 underline underline-offset-2 tracking-wider uppercase transition-colors"
+              className="font-mono text-xs text-stamp-300 hover:text-stamp-200 underline underline-offset-2 tracking-wider uppercase transition-colors"
             >
               Create a Proposal
             </Link>
@@ -107,8 +107,8 @@ export default function DashboardPage() {
                 </svg>
               </div>
               <div>
-                <p className="font-mono text-[10px] font-bold text-ink-800 uppercase tracking-wider">New Proposal</p>
-                <p className="text-[10px] text-ink-400 mt-0.5">AI-generated in seconds</p>
+                <p className="font-mono text-xs font-bold text-ink-800 uppercase tracking-wider">New Proposal</p>
+                <p className="text-xs text-ink-400 mt-0.5">AI-generated in seconds</p>
               </div>
             </Link>
 
@@ -122,8 +122,8 @@ export default function DashboardPage() {
                 </svg>
               </div>
               <div>
-                <p className="font-mono text-[10px] font-bold text-ink-800 uppercase tracking-wider">Add Client</p>
-                <p className="text-[10px] text-ink-400 mt-0.5">Start a new relationship</p>
+                <p className="font-mono text-xs font-bold text-ink-800 uppercase tracking-wider">Add Client</p>
+                <p className="text-xs text-ink-400 mt-0.5">Start a new relationship</p>
               </div>
             </Link>
 
@@ -137,8 +137,8 @@ export default function DashboardPage() {
                 </svg>
               </div>
               <div>
-                <p className="font-mono text-[10px] font-bold text-ink-800 uppercase tracking-wider">Create Invoice</p>
-                <p className="text-[10px] text-ink-400 mt-0.5">Get paid faster</p>
+                <p className="font-mono text-xs font-bold text-ink-800 uppercase tracking-wider">Create Invoice</p>
+                <p className="text-xs text-ink-400 mt-0.5">Get paid faster</p>
               </div>
             </Link>
           </div>
@@ -153,7 +153,7 @@ export default function DashboardPage() {
                 return (
                   <div key={stage.label} className="text-center">
                     <p className={`text-2xl font-bold font-mono ${stage.color}`}>{val}</p>
-                    <p className="font-mono text-[8px] text-ink-400 uppercase tracking-[0.15em] mt-1">{stage.label}</p>
+                    <p className="font-mono text-xs text-ink-400 uppercase tracking-[0.15em] mt-1">{stage.label}</p>
                     {/* Mini progress bar */}
                     <div className="mt-2 h-1 bg-ledger/40 rounded-full overflow-hidden">
                       <div

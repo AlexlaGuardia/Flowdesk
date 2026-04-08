@@ -167,7 +167,7 @@ export default function ClientPortalPage() {
 
         <div className="mt-8 text-center">
           <div className="empty-stamp mx-auto rotate-[-4deg]" style={{ padding: "6px 16px" }}>
-            <span className="empty-stamp-text text-[9px]">Stampwerk</span>
+            <span className="empty-stamp-text text-xs">Stampwerk</span>
           </div>
         </div>
       </div>

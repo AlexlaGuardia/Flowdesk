@@ -45,13 +45,13 @@ export default function Home() {
       <nav className="flex items-center justify-between px-6 py-5 max-w-5xl mx-auto">
         <div className="flex items-center gap-2.5">
           <StampwerkLogo size={24} />
-          <span className="font-heading text-[10px] text-stamp-600 tracking-wider">
+          <span className="font-heading text-xs text-stamp-600 tracking-wider">
             STAMPWERK
           </span>
         </div>
         <Link
           href="/login"
-          className="font-mono text-[10px] text-stamp-500 hover:text-stamp-700 uppercase tracking-[0.2em] transition-colors"
+          className="font-mono text-xs text-stamp-500 hover:text-stamp-700 uppercase tracking-[0.2em] transition-colors"
         >
           Sign In &#9654;
         </Link>
@@ -60,7 +60,7 @@ export default function Home() {
       {/* ── Hero ── */}
       <section className="bg-stamp-900 py-20 md:py-28 px-6">
         <div className="max-w-3xl mx-auto text-center">
-          <p className="font-mono text-[10px] text-stamp-400 tracking-[0.3em] uppercase mb-6">
+          <p className="font-mono text-xs text-stamp-400 tracking-[0.3em] uppercase mb-6">
             For freelancers tired of overpaying
           </p>
           <h1
@@ -77,7 +77,7 @@ export default function Home() {
             <Link href="/login" className="btn-insert-coin inline-block">
               START FREE
             </Link>
-            <span className="font-mono text-[9px] text-stamp-500 tracking-[0.15em]">
+            <span className="font-mono text-xs text-stamp-500 tracking-[0.15em]">
               No credit card required
             </span>
           </div>
@@ -88,7 +88,7 @@ export default function Home() {
       <section className="py-20 px-6 bg-parchment">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-14">
-            <p className="font-heading text-[9px] text-ink-400 tracking-[0.25em] uppercase">
+            <p className="font-heading text-sm text-ink-700 tracking-[0.25em] uppercase">
               How It Works
             </p>
             <div className="h-px bg-ledger mt-3 max-w-[80px] mx-auto" />
@@ -99,13 +99,13 @@ export default function Home() {
               <div key={step.num} className="text-center">
                 <div className="inline-flex items-center justify-center w-14 h-14 rounded-arcade bg-stamp-900 mb-5">
                   <span
-                    className="font-heading text-[11px] text-stamp-300 tracking-wider"
+                    className="font-heading text-sm text-stamp-300 tracking-wider"
                     style={{ textShadow: "0 0 8px rgba(229,174,159,0.3)" }}
                   >
                     {step.num}
                   </span>
                 </div>
-                <h3 className="font-heading text-[10px] text-ink-900 tracking-[0.15em] uppercase mb-2">
+                <h3 className="font-heading text-sm text-ink-900 tracking-[0.15em] uppercase mb-2">
                   {step.title}
                 </h3>
                 <p className="text-ink-500 text-sm leading-relaxed">{step.desc}</p>
@@ -119,7 +119,7 @@ export default function Home() {
       <section className="py-20 px-6 bg-paper">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-14">
-            <p className="font-heading text-[9px] text-ink-400 tracking-[0.25em] uppercase">
+            <p className="font-heading text-sm text-ink-700 tracking-[0.25em] uppercase">
               Everything You Need
             </p>
             <p className="text-ink-500 text-sm mt-3 max-w-md mx-auto">
@@ -134,7 +134,7 @@ export default function Home() {
                 <div className="flex items-start gap-4">
                   <span className="text-3xl">{f.icon}</span>
                   <div>
-                    <h3 className="font-heading text-[9px] text-ink-900 tracking-[0.15em] uppercase mb-2">
+                    <h3 className="font-heading text-xs text-ink-900 tracking-[0.15em] uppercase mb-2">
                       {f.title}
                     </h3>
                     <p className="text-ink-500 text-sm leading-relaxed">{f.desc}</p>
@@ -150,7 +150,7 @@ export default function Home() {
       <section className="py-20 px-6 bg-stamp-900">
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-14">
-            <p className="font-heading text-[9px] text-stamp-400 tracking-[0.25em] uppercase">
+            <p className="font-heading text-sm text-stamp-400 tracking-[0.25em] uppercase">
               Stop Overpaying
             </p>
             <h2
@@ -165,10 +165,10 @@ export default function Home() {
           <div className="card p-0 overflow-hidden">
             {/* Table header */}
             <div className="bg-stamp-800 px-5 py-3 grid grid-cols-12 gap-2 items-center">
-              <span className="font-heading text-[8px] text-stamp-400 tracking-wider col-span-3">Tool</span>
-              <span className="font-heading text-[8px] text-stamp-400 tracking-wider col-span-3 text-center">Price</span>
-              <span className="font-heading text-[8px] text-stamp-400 tracking-wider col-span-2 text-center">AI?</span>
-              <span className="font-heading text-[8px] text-stamp-400 tracking-wider col-span-4">Catch</span>
+              <span className="font-heading text-xs text-stamp-400 tracking-wider col-span-3">Tool</span>
+              <span className="font-heading text-xs text-stamp-400 tracking-wider col-span-3 text-center">Price</span>
+              <span className="font-heading text-xs text-stamp-400 tracking-wider col-span-2 text-center">AI?</span>
+              <span className="font-heading text-xs text-stamp-400 tracking-wider col-span-4">Catch</span>
             </div>
             {COMPARISON.map((row, i) => {
               const isStampwerk = row.name === "Stampwerk";
@@ -203,7 +203,7 @@ export default function Home() {
           <div className="text-center mt-8">
             <Link
               href="/compare"
-              className="font-mono text-[10px] text-stamp-400 hover:text-stamp-200 tracking-[0.2em] uppercase transition-colors"
+              className="font-mono text-xs text-stamp-400 hover:text-stamp-200 tracking-[0.2em] uppercase transition-colors"
             >
               Full feature-by-feature comparison &#9654;
             </Link>
@@ -215,7 +215,7 @@ export default function Home() {
       <section className="py-16 px-6 bg-kraft">
         <div className="max-w-2xl mx-auto text-center">
           <div className="empty-stamp mx-auto mb-6" style={{ padding: "12px 24px", borderColor: "#C9BFA8", display: "inline-block", rotate: "0deg" }}>
-            <span className="font-heading text-[8px] uppercase tracking-[0.25em] text-ink-500">Built by a freelancer</span>
+            <span className="font-heading text-xs uppercase tracking-[0.25em] text-ink-500">Built by a freelancer</span>
           </div>
           <p className="text-ink-700 text-sm leading-relaxed max-w-lg mx-auto">
             I got tired of paying $59/mo for software I barely used, then spending hours writing proposals from scratch.
@@ -229,7 +229,7 @@ export default function Home() {
       <section className="py-20 px-6 bg-parchment">
         <div className="max-w-lg mx-auto">
           <div className="text-center mb-8">
-            <p className="font-heading text-[9px] text-ink-400 tracking-[0.25em] uppercase">
+            <p className="font-heading text-sm text-ink-700 tracking-[0.25em] uppercase">
               Pricing
             </p>
             <div className="h-px bg-ledger mt-3 max-w-[80px] mx-auto" />
@@ -239,7 +239,7 @@ export default function Home() {
           <div className="grid md:grid-cols-2 gap-6 mb-10">
             {/* Free */}
             <div className="card p-6 text-center">
-              <p className="font-heading text-[9px] text-ink-400 tracking-[0.2em] uppercase mb-2">Free</p>
+              <p className="font-heading text-xs text-ink-400 tracking-[0.2em] uppercase mb-2">Free</p>
               <p className="font-heading text-lg text-ink-900 tracking-wider mb-4">$0</p>
               <ul className="text-left text-sm text-ink-500 space-y-2">
                 <li className="flex items-start gap-2"><span className="text-ledger-green mt-0.5">&#9632;</span> 5 AI proposals/mo</li>
@@ -251,9 +251,9 @@ export default function Home() {
 
             {/* Pro */}
             <div className="card p-6 text-center border-stamp-600">
-              <p className="font-heading text-[9px] text-stamp-500 tracking-[0.2em] uppercase mb-2">Pro</p>
-              <p className="font-heading text-lg text-stamp-600 tracking-wider mb-1">$12<span className="text-[10px] text-ink-400">/mo</span></p>
-              <p className="font-mono text-[9px] text-ink-400 tracking-wider mb-4">One price. That&apos;s it.</p>
+              <p className="font-heading text-xs text-stamp-500 tracking-[0.2em] uppercase mb-2">Pro</p>
+              <p className="font-heading text-lg text-stamp-600 tracking-wider mb-1">$12<span className="text-xs text-ink-400">/mo</span></p>
+              <p className="font-mono text-xs text-ink-400 tracking-wider mb-4">One price. That&apos;s it.</p>
               <ul className="text-left text-sm text-ink-500 space-y-2">
                 <li className="flex items-start gap-2"><span className="text-stamp-500 mt-0.5">&#9632;</span> Unlimited proposals</li>
                 <li className="flex items-start gap-2"><span className="text-stamp-500 mt-0.5">&#9632;</span> Unlimited invoices</li>
@@ -269,7 +269,7 @@ export default function Home() {
             <Link href="/login" className="btn-insert-coin inline-block">
               START FREE
             </Link>
-            <p className="font-mono text-[9px] text-ink-400 mt-5 tracking-[0.2em]">
+            <p className="font-mono text-xs text-ink-400 mt-5 tracking-[0.2em]">
               No credit card &mdash; upgrade when you&apos;re ready
             </p>
           </div>
@@ -280,26 +280,26 @@ export default function Home() {
       <footer className="bg-stamp-900 border-t border-stamp-800 py-10 text-center">
         <div className="flex items-center justify-center gap-2.5 mb-4">
           <StampwerkLogo size={20} />
-          <span className="font-heading text-[8px] uppercase tracking-[0.25em] text-stamp-600">
+          <span className="font-heading text-xs uppercase tracking-[0.25em] text-stamp-600">
             Stampwerk
           </span>
         </div>
         <div className="flex items-center justify-center gap-4 mb-4">
           <Link
             href="/"
-            className="font-mono text-[9px] text-stamp-600 hover:text-stamp-400 tracking-wider transition-colors"
+            className="font-mono text-xs text-stamp-600 hover:text-stamp-400 tracking-wider transition-colors"
           >
             Home
           </Link>
           <span className="text-stamp-800">|</span>
           <Link
             href="/compare"
-            className="font-mono text-[9px] text-stamp-600 hover:text-stamp-400 tracking-wider transition-colors"
+            className="font-mono text-xs text-stamp-600 hover:text-stamp-400 tracking-wider transition-colors"
           >
             Compare
           </Link>
         </div>
-        <p className="font-mono text-[9px] text-stamp-700 tracking-wider">
+        <p className="font-mono text-xs text-stamp-700 tracking-wider">
           &copy; {new Date().getFullYear()} &nbsp;&#9632;&nbsp; For freelancers, by freelancers
         </p>
         <div className="flex items-center justify-center gap-3 mt-4">

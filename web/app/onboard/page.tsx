@@ -37,7 +37,7 @@ export default function OnboardPage() {
         <div className="mb-8">
           <div className="flex items-center gap-2 mb-4">
             <div className="h-px flex-1 bg-ledger" />
-            <span className="font-heading text-[8px] text-ink-400 tracking-[0.2em] uppercase">Get Started</span>
+            <span className="font-heading text-xs text-ink-400 tracking-[0.2em] uppercase">Get Started</span>
             <div className="h-px flex-1 bg-ledger" />
           </div>
           <h1 className="font-heading text-[13px] text-ink-900 tracking-wider leading-relaxed">
@@ -70,7 +70,7 @@ export default function OnboardPage() {
               placeholder="Optional"
               className="input-field w-full"
             />
-            <p className="font-mono text-[9px] text-ink-400 mt-1.5 tracking-wider">
+            <p className="font-mono text-xs text-ink-400 mt-1.5 tracking-wider">
               Shown on proposals and invoices.
             </p>
           </div>
@@ -89,7 +89,7 @@ export default function OnboardPage() {
               </div>
               <div>
                 <span className="font-mono text-sm text-ink-700 tracking-wider">{brandColor.toUpperCase()}</span>
-                <p className="font-mono text-[9px] text-ink-400 mt-0.5 tracking-wider">
+                <p className="font-mono text-xs text-ink-400 mt-0.5 tracking-wider">
                   Used on your client portal.
                 </p>
               </div>
@@ -105,7 +105,7 @@ export default function OnboardPage() {
               {loading ? "LOADING..." : "COMPLETE SETUP"}
             </button>
             {!name && (
-              <p className="font-mono text-[9px] text-ink-400 text-center mt-3 tracking-wider">
+              <p className="font-mono text-xs text-ink-400 text-center mt-3 tracking-wider">
                 Enter your name to continue
               </p>
             )}
