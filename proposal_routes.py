@@ -43,6 +43,7 @@ async def generate_proposal(body: ProposalWizard, user: dict = Depends(get_curre
         scope_description=body.scope_description,
         timeline=body.timeline,
         budget_range=body.budget_range,
+        business_name=user.get("business_name", ""),
     )
 
     share_token = generate_share_token()

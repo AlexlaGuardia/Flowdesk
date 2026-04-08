@@ -5,34 +5,112 @@ import config
 client = Groq(api_key=config.GROQ_API_KEY) if config.GROQ_API_KEY else None
 
 
-PROPOSAL_SYSTEM_PROMPT = """You are an expert freelance proposal writer. Generate professional, persuasive proposals that win clients.
+INDUSTRY_HINTS = {
+    "web": {"tone": "technical but accessible", "terms": "staging site for review, browser/device testing included", "phases": ["Discovery & Wireframes", "Design Mockups", "Development", "Testing & Launch"]},
+    "design": {"tone": "creative and visual", "terms": "mood board approval before execution, source files included", "phases": ["Creative Brief & Mood Board", "Concept Development", "Refinement", "Final Delivery"]},
+    "brand": {"tone": "strategic and creative", "terms": "brand guidelines document included, logo in all standard formats", "phases": ["Brand Discovery", "Concept Exploration", "Identity Refinement", "Brand Package Delivery"]},
+    "photo": {"tone": "warm and professional", "terms": "shot list approved in advance, edited selects delivered within 2 weeks", "phases": ["Pre-Production & Planning", "Shoot Day(s)", "Editing & Selection", "Final Delivery"]},
+    "video": {"tone": "warm and professional", "terms": "storyboard approval before filming, 2 rounds of edit revisions", "phases": ["Pre-Production & Script", "Production / Filming", "Post-Production & Editing", "Final Delivery"]},
+    "write": {"tone": "clear and strategic", "terms": "outline approval before drafting, SEO keywords agreed upfront", "phases": ["Research & Outline", "First Draft", "Revisions", "Final Copy & Formatting"]},
+    "market": {"tone": "data-driven and strategic", "terms": "monthly reporting included, KPIs defined at kickoff", "phases": ["Audit & Strategy", "Campaign Setup", "Execution & Optimization", "Reporting & Handoff"]},
+    "consult": {"tone": "authoritative but approachable", "terms": "findings delivered as actionable report, follow-up call included", "phases": ["Discovery & Assessment", "Analysis", "Recommendations", "Presentation & Handoff"]},
+}
 
-You will receive project details and must generate a structured proposal in JSON format.
+def _detect_industry(project_type: str, scope: str) -> dict:
+    """Match project inputs to an industry for tone and structure hints."""
+    text = f"{project_type} {scope}".lower()
+    # Check specific industries before broad ones (photo before web, brand before design)
+    if any(w in text for w in ["photo", "headshot", "portrait", "shoot", "product photo", "real estate photo"]):
+        return INDUSTRY_HINTS["photo"]
+    if any(w in text for w in ["video", "film", "animation", "motion", "reel"]):
+        return INDUSTRY_HINTS["video"]
+    if any(w in text for w in ["brand", "logo", "identity", "rebrand"]):
+        return INDUSTRY_HINTS["brand"]
+    if any(w in text for w in ["website", "web app", "landing page", "frontend", "backend", "api", "saas", "ecommerce"]):
+        return INDUSTRY_HINTS["web"]
+    if any(w in text for w in ["design", "ui", "ux", "graphic", "illustration", "flyer", "poster"]):
+        return INDUSTRY_HINTS["design"]
+    if any(w in text for w in ["copy", "writing", "blog", "article", "content", "seo", "email"]):
+        return INDUSTRY_HINTS["write"]
+    if any(w in text for w in ["marketing", "social media", "ads", "campaign", "ppc", "seo strategy"]):
+        return INDUSTRY_HINTS["market"]
+    if any(w in text for w in ["consult", "audit", "strategy", "advisory", "review"]):
+        return INDUSTRY_HINTS["consult"]
+    return {"tone": "professional and clear", "terms": "2 rounds of revisions included", "phases": ["Discovery", "Execution", "Review", "Delivery"]}
+
+
+PROPOSAL_SYSTEM_PROMPT = """You are a senior freelance proposal writer who has helped win over $2M in contracts across design, development, photography, marketing, and consulting.
+
+You will receive project details and industry context. Generate a structured proposal in JSON format that a real client would accept.
 
 Your output MUST be valid JSON with this exact structure:
 {
-    "executive_summary": "2-3 sentence overview of what you'll deliver and why you're the right choice",
-    "scope_of_work": ["Clear description of each work item"],
-    "deliverables": ["Specific, tangible deliverable 1", "Deliverable 2"],
+    "executive_summary": "2-3 sentences. Lead with the client's problem, then your solution, then why you specifically.",
+    "scope_of_work": ["Each item starts with an action verb. Be specific about what's included AND what's not."],
+    "deliverables": ["Tangible, countable items the client receives. Not vague outcomes."],
     "timeline_breakdown": [
-        {"phase": "Phase name", "duration": "e.g. Week 1-2", "tasks": "What happens in this phase"}
+        {"phase": "Phase name", "duration": "e.g. Week 1-2", "tasks": "Specific activities, not generic filler"}
     ],
     "pricing_table": [
-        {"item": "Description", "amount": 1500.00}
+        {"item": "Specific line item tied to a deliverable", "amount": 1500.00}
     ],
     "total_price": 3000.00,
-    "terms": "Payment terms, revision policy, and other conditions",
+    "terms": "Payment schedule, revision policy, and what happens if scope changes",
     "valid_until": "30 days from today"
 }
 
-Guidelines:
-- Be specific and professional, not generic
-- Break the timeline into realistic phases
-- Pricing should fall within the client's budget range
-- Include 1-2 rounds of revisions in scope
-- Terms should mention payment schedule (e.g., 50% upfront, 50% on completion)
-- Keep the executive summary warm but professional — this is a freelancer, not a corporation
-- Total deliverables should match the scope items"""
+WINNING PROPOSAL TACTICS (follow these):
+1. Executive summary: Name the client's specific problem in sentence 1. Don't start with "I" or "We".
+2. Scope: Use action verbs (Design, Build, Deliver, Configure, Test). Each item = one clear commitment.
+3. Deliverables: Countable nouns only. "5 page designs" not "design work". "1 brand guidelines PDF" not "brand materials".
+4. Timeline: Realistic phases with what the CLIENT does too (approvals, feedback windows).
+5. Pricing: Break budget into 3-5 logical line items. Never one lump sum. Each ties to a deliverable.
+6. Terms: Always include deposit structure, revision count, and a scope-change clause.
+7. Tone: Confident but not arrogant. You're a skilled partner, not a vendor begging for work.
+
+EXAMPLE — Web Development Proposal:
+{
+    "executive_summary": "Your current site loads in 6+ seconds and isn't converting mobile visitors. This proposal covers a complete redesign on Next.js with performance as the priority, targeting sub-2-second loads and a mobile-first layout that guides visitors to book a consultation.",
+    "scope_of_work": ["Audit existing site performance and analytics", "Design 5 responsive page layouts (Home, About, Services, Portfolio, Contact)", "Develop in Next.js with Tailwind CSS", "Configure hosting, SSL, and DNS cutover", "Test across Chrome, Safari, Firefox on desktop and mobile"],
+    "deliverables": ["5 page designs (Figma)", "Fully developed Next.js site", "Hosting configuration on Vercel", "30-minute handoff call with CMS walkthrough"],
+    "timeline_breakdown": [
+        {"phase": "Discovery & Wireframes", "duration": "Week 1", "tasks": "Site audit, wireframe 5 pages, client approval on layout direction"},
+        {"phase": "Design", "duration": "Week 2", "tasks": "High-fidelity mockups in Figma, 1 round of feedback"},
+        {"phase": "Development", "duration": "Week 3-4", "tasks": "Build in Next.js, integrate CMS, responsive testing"},
+        {"phase": "Launch", "duration": "Week 5", "tasks": "Staging review, DNS cutover, post-launch check"}
+    ],
+    "pricing_table": [
+        {"item": "Discovery & wireframes", "amount": 500},
+        {"item": "UI design (5 pages)", "amount": 1200},
+        {"item": "Development & CMS integration", "amount": 2000},
+        {"item": "Testing, launch & handoff", "amount": 300}
+    ],
+    "total_price": 4000,
+    "terms": "50% deposit to begin ($2,000). Remaining 50% due at launch. Includes 2 rounds of design revisions. Additional revisions at $75/hr. Scope changes beyond this document require a written change order.",
+    "valid_until": "30 days from proposal date"
+}
+
+EXAMPLE — Brand Identity Proposal:
+{
+    "executive_summary": "You're launching a premium skincare line but don't have a visual identity that matches the quality of your products. This proposal covers a complete brand identity system — logo, color palette, typography, and a guidelines document your team can use across every touchpoint.",
+    "scope_of_work": ["Conduct brand discovery session (45 min call)", "Research competitor visual positioning", "Design 3 logo concepts with rationale", "Develop full color palette and typography system", "Create brand guidelines document (PDF)"],
+    "deliverables": ["3 logo concepts (round 1)", "1 refined logo in 6 formats (SVG, PNG, EPS, favicon, social, print)", "Color palette with hex/RGB/CMYK values", "Typography pairing with usage rules", "24-page brand guidelines PDF"],
+    "timeline_breakdown": [
+        {"phase": "Brand Discovery", "duration": "Week 1", "tasks": "Discovery call, competitor audit, mood board for client approval"},
+        {"phase": "Concept Development", "duration": "Week 2", "tasks": "3 distinct logo directions with color/type exploration"},
+        {"phase": "Refinement", "duration": "Week 3", "tasks": "Client selects 1 direction, 2 rounds of refinement"},
+        {"phase": "Brand Package", "duration": "Week 4", "tasks": "Final files, guidelines document, handoff"}
+    ],
+    "pricing_table": [
+        {"item": "Brand discovery & research", "amount": 400},
+        {"item": "Logo design (3 concepts + refinement)", "amount": 1800},
+        {"item": "Color & typography system", "amount": 500},
+        {"item": "Brand guidelines document", "amount": 300}
+    ],
+    "total_price": 3000,
+    "terms": "50% deposit to begin ($1,500). Remaining 50% due on delivery of brand package. Includes 2 rounds of logo revisions after concept selection. Additional concepts beyond initial 3 at $400 each.",
+    "valid_until": "30 days from proposal date"
+}"""
 
 
 def generate_proposal(
@@ -42,19 +120,32 @@ def generate_proposal(
     scope_description: str,
     timeline: str,
     budget_range: str,
+    business_name: str = "",
 ) -> dict:
     """Generate a proposal using Groq/Llama from wizard inputs."""
     if not client:
         return _fallback_proposal(project_type, scope_description, timeline, budget_range)
 
+    industry = _detect_industry(project_type, scope_description)
+    from_line = f"{freelancer_name}"
+    if business_name:
+        from_line += f" ({business_name})"
+
     user_prompt = f"""Generate a proposal for the following project:
 
-Freelancer: {freelancer_name}
-Client: {client_name}
+From: {from_line}
+To: {client_name}
 Project Type: {project_type}
 Scope: {scope_description}
 Timeline: {timeline}
 Budget Range: {budget_range}
+
+Industry context:
+- Tone: {industry['tone']}
+- Suggested phases: {', '.join(industry['phases'])}
+- Terms hint: {industry['terms']}
+
+Adapt the proposal structure to this specific industry. Use the suggested phases as a starting point but adjust to fit the actual scope. Pricing MUST fall within the stated budget range — break it into 3-5 line items that add up to a total within that range.
 
 Generate the proposal JSON now."""
 
