@@ -28,7 +28,7 @@ const AuthContext = createContext<AuthContextType>({
   logout: () => {},
 });
 
-const PUBLIC_PATHS = ["/", "/login", "/auth/verify"];
+const PUBLIC_PATHS = ["/", "/login", "/auth/verify", "/compare"];
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);

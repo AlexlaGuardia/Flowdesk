@@ -28,7 +28,7 @@ Try it: critik.dev
 
 ## Post 2: Stampwerk Compare Page (post Thursday or Friday, before PH Monday)
 
-I just published a full comparison of every freelancer tool on the market.
+I compared every freelancer business tool on the market. Here's what I found:
 
 HoneyBook: $59/mo. AI that invents meeting times.
 Dubsado: $35/mo. Needs a $500 setup consultant.
